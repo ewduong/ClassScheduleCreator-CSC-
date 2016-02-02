@@ -1,2 +1,0 @@
-# ClassScheduleCreator-CSC-
-"Hello World"
