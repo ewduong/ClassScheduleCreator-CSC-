@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- Host:                         csc.c6zyeoxiacp9.us-west-2.rds.amazonaws.com
 -- Server version:               10.0.17-MariaDB-log - MariaDB Server
--- Server OS:                    Linux
+-- Server OS:                    Linuxspring_2016
 -- HeidiSQL Version:             9.3.0.4984
 -- --------------------------------------------------------
 

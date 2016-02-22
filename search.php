@@ -18,7 +18,7 @@
 	<!-- CSS
     ================================================== -->
    <link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" href="css/layout.css">
+   <link rel="stylesheet" href="css/layout.css">
    <link rel="stylesheet" href="css/media-queries.css">
 
    <!-- Script
@@ -54,9 +54,11 @@
 
 	               <li><a href="index.html">Home</a></li>
 	               <li class="current"><a href="search.php">Search Courses</a>
+				   <!--
 	               <li><a href="about.html">About</a></li>
                   <li><a href="contact.html">Contact</a></li>
                   <li><a href="styles.html">Features</a></li>
+				  -->
 
                </ul> <!-- end #nav -->
 
@@ -83,106 +85,89 @@
 					   <div class="twelve columns">
 						   <div class="slider-text">
 							   <h1>ScheduleCreator<span>.</span></h1>
-							   <p>
-							   <div class="box">
-								  <div class="container-1">
-									  <span class="icon"><i class="fa fa-search"></i></span>
-									  <form method ="post" id="searchform">
-										<input type="search" id ="search" name="searchvalue" placeholder="Search...">
-										<input type="submit" name="Submit" style="display: none">
-									  </form>
-								  </div>
-								</div>
-							   </p>
+								<form method ="post" id="search-form">
+									<p>Course CRN: <input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
+									<p>Day: <input type='text' placeholder='Search...' id="search-text-input" name="day" /></p>
+									<p>Start: <input type='text' placeholder='Search...' id="search-text-input" name="start" /></p>
+									<p>End: <input type='text' placeholder='Search...' id="search-text-input" name="end" /></p>
+									<p>Professor: <input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
+									<p>Location: <input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
+									<input type="submit" name="Submit" style="display: none">
+								</form>
 						   </div>
-                     <div class="slider-image">
-
-                     </div>
 					   </div>
 				   </div>
 			   </li>
 			   <div class="row align-center text-center centered">
 					<?php
 						include('includes/dbconnect.php');
+						$fields = array('course_CRN', 'day', 'start', 'end', 'instructor', 'location');
+						$course_CRN = $day = $start = $end = $instructor = $location = false;
+						$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE ";
 
 						if (isset($_POST['Submit'])) {
-							if (!empty($_REQUEST['searchvalue'])) {
-								$sql = "SELECT * FROM class WHERE Instructor LIKE '%".$_POST['searchvalue']."%'"; 
-								$result = $conn->query($sql);
-												
-								if ($result->num_rows > 0) {
-									echo "<center><table class=\"bordered\">
-									<tr><th>ID</th>
-									<th>Course CRN</th>
-									<th>Day</th>
-									<th>Start</th>
-									<th>End</th>
-									<th>Instructor</th>
-									<th>Location</th></tr>";
-									
-									// output data of each row
-									while($row = $result->fetch_assoc()) {
-										echo "<tr><td>".$row["id"]."</td>
-										<td>".$row["course_CRN"]."</td>
-										<td>".$row["day"]."</td>
-										<td>".$row["start"]."</td>
-										<td>".$row["end"]."</td>
-										<td>".$row["instructor"]."</td>
-										<td>".$row["location"]."</td></tr>";
-									}
-									
-									echo "</table>";
-									} else {
-										echo "0 results";
-									}
-							} else {
-								$sql = "SELECT id, instructor, location FROM class"; 
-								$result = $conn->query($sql);
-												
-								if ($result->num_rows > 0) {
-									echo "<table class=\"bordered\"><tr><th>ID</th><th>Instructor</th><th>Location</th></tr>";
-									// output data of each row
-									while($row = $result->fetch_assoc()) {
-										echo "<tr><td>".$row["id"]."</td><td>".$row["instructor"]."</td><td>".$row["location"]."</td></tr>";
-									}
-									
-									echo "</table></center>";
-									} else {
-										echo "0 results";
-									}
+							foreach($fields AS $fieldname) { //Loop trough each field
+								if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
+									echo 'Field '.$fieldname.' misses!';
+									$$fieldname = false;
+									echo $$fieldname ? ' true <br />' : ' false <br />';
+								} else {
+									$$fieldname = true;
+									echo $fieldname.' ';
+									echo $$fieldname ? ' true <br />' : ' false <br />';
+								}
 							}
-						}
-						
+							
+							foreach($fields AS $fieldname) {
+								if ($$fieldname) {
+									$sql .= $$fieldname;
+									echo "sql: ".$sql;
+								}
+							}
+							
+							if (!(empty($_REQUEST['instructor']) && empty($_REQUEST['location']))) {
+								$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE instructor LIKE '%".$_POST['instructor']."%' AND location LIKE '%".$_POST['location']."%'";
+							} else if (!empty($_REQUEST['instructor'])) {
+								$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE instructor LIKE '%".$_POST['instructor']."%'";
+							} else {
+								$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class";  
+							}
+							
+							$result = $conn->query($sql);
+							if ($result->num_rows > 0) {
+								echo "<center><table class=\"bordered\">
+									<tr>
+										<th class='text-center'>Course CRN</th>
+										<th class='text-center'>Day</th>
+										<th class='text-center'>Start</th>
+										<th class='text-center'>End</th>
+										<th class='text-center'>Instructor</th>
+										<th class='text-center'>Location</th>
+									</tr>";
+									
+								// output data of each row
+								while($row = $result->fetch_assoc()) {
+									echo "<tr>
+										<td class='text-center'>".$row["course_CRN"]."</td>
+										<td class='text-center'>".$row["day"]."</td>
+										<td class='text-center'>".$row["start"]."</td>
+										<td class='text-center'>".$row["end"]."</td>
+										<td class='text-center'>".$row["instructor"]."</td>
+										<td class='text-center'>".$row["location"]."</td>
+									</tr>";
+								}
+									
+								echo "</table>";
+								} else {
+									echo "0 results";
+								}
+						}			
 						$conn->close();
 					?>
 			   </div>
 
 		
 	   </div> <!-- Flexslider End-->
-
- 
-
-  
-	
-    <!--  <div class="row">
-         <div class="twelve columns align-center">
-            <h1>Our latest posts and rants.</h1>
-         </div>
-      </div>
-	?>
-    -->
-
-   <!-- Tweets Section
-   ================================================== -->
-   <!-- <section id="tweets">
-
-      <div class="row">
-
-       
-
-      </div>
-
-   </section> <!-- Tweet Section End-->
 
    <!-- footer
    ================================================== -->
