@@ -101,14 +101,26 @@
 			   <div class="row align-center text-center centered">
 					<?php
 						include('includes/dbconnect.php');
+						
+						// replace last occurence of $search string (for sql statement remove last AND)
+						function str_lreplace($search, $replace, $subject) {
+							$pos = strrpos($subject, $search);
+
+							if($pos !== false) {
+								$subject = substr_replace($subject, $replace, $pos, strlen($search));
+							}
+
+							return $subject;
+						}
+
 						$fields = array('course_CRN', 'day', 'start', 'end', 'instructor', 'location');
-						$course_CRN = $day = $start = $end = $instructor = $location = false;
+						$course_CRN = $title = $day = $start = $end = $instructor = $location = false;
 						$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE ";
 
 						if (isset($_POST['Submit'])) {
-							foreach($fields AS $fieldname) { //Loop trough each field
+							foreach($fields AS $fieldname) { // Loop trough each field to see if empty or not
 								if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
-									echo 'Field '.$fieldname.' misses!';
+									echo 'Field '.$fieldname.' empty!';
 									$$fieldname = false;
 									echo $$fieldname ? ' true <br />' : ' false <br />';
 								} else {
@@ -118,20 +130,30 @@
 								}
 							}
 							
+							// sql statement generator based on text boxes filled in (still wip)
 							foreach($fields AS $fieldname) {
 								if ($$fieldname) {
-									$sql .= $$fieldname;
-									echo "sql: ".$sql;
+									$sql .= $fieldname." LIKE '%".$_POST[$fieldname]."%' AND ";
+									//echo "sql generated: ".$sql."<br />";
 								}
 							}
 							
+							$sql = str_lreplace("AND", "", $sql); // remove trailing AND in sql statement
+							//echo "sql generated: ".$sql."<br />";
+							
+							/*
 							if (!(empty($_REQUEST['instructor']) && empty($_REQUEST['location']))) {
 								$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE instructor LIKE '%".$_POST['instructor']."%' AND location LIKE '%".$_POST['location']."%'";
 							} else if (!empty($_REQUEST['instructor'])) {
 								$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE instructor LIKE '%".$_POST['instructor']."%'";
+								//echo "sql generated: ".$sql."<br />";
 							} else {
 								$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class";  
 							}
+							*/
+							
+							echo "sql generated: ".$sql."<br />";
+							
 							
 							$result = $conn->query($sql);
 							if ($result->num_rows > 0) {
