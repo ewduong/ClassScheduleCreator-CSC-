@@ -55,7 +55,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#services">Search Courses</a>
+                        <a class="page-scroll" href="#courses">Search Courses</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about">Browse Professors</a>
@@ -84,16 +84,15 @@
         </div>
     </header>
 
- <section id="services">
+ <section id="courses">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Search for Courses</h2>
                     <hr class="primary">
                     <form method ="post" id="search-form">
-                                    <p>Course CRN: <input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
-                                    <!--<p>Day: <input type='text' placeholder='Search...' id="search-text-input" name="day" /></p>-->
-									<p>Subject: <select id="subject-dropdown">
+                                    <p><label for="course-crn">Course CRN: </label><input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
+									<p><label for="subject">Subject: </label><select name="subject">
 										<option></option>
 										<option>ARCH</option>
 										<option>BIOL</option>
@@ -136,19 +135,19 @@
 										<option>PHYC</option>
 										<option>SOCL</option>
 										<option>SURV</option>
-									</select></p>
-									<p>Title: <input type='text' placeholder='Search...' id="search-text-input" name="title" /></p>
-									<p>Day:
+									</select>
+									<label for="title">Title: </label><input type='text' placeholder='Search...' id="search-text-input" name="title" /></p>
+									<p><label for="day">Day: </label>
 									<input type="checkbox" name="day[]" value="M"> Monday
 									<input type="checkbox" name="day[]" value="T"> Tuesday
 									<input type="checkbox" name="day[]" value="W"> Wednesday
 									<input type="checkbox" name="day[]" value="R"> Thursday
 									<input type="checkbox" name="day[]" value="F"> Friday
 									<input type="checkbox" name ="day[]" value="S"> Saturday</p>
-									<p>From: <input type="time" name="start">
-									<p>To: <input type="time" name="end">
-                                    <p>Professor: <input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
-                                    <p>Location: <input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
+									<p><label for="start">From: </label><input type="time" name="start">
+									<label for="end">To: </label><input type="time" name="end"></p>
+                                    <p><label for="instructor">Professor: </label><input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
+                                    <p><label for="location">Location: </label><input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
                                     <input type="submit" name="Submit">
                                 </form>
                     <?php
@@ -165,10 +164,8 @@
                             return $subject;
                         }
 
-                        //$fields = array('course_CRN', 'day', 'start', 'end', 'instructor', 'location', 'title');
 						$fields = array('course_CRN', 'subject', 'title', 'day', 'start', 'end', 'instructor', 'location');
-                        $course_CRN = $title = $day = $start = $end = $instructor = $location = false;
-                        //$sql = "SELECT a.course_CRN, a.day, a.start, a.end, a.instructor, a.location, b.title FROM class a, course b WHERE a.course_CRN = b.CRN AND ";
+                        $course_CRN = $subject = $title = $day = $start = $end = $instructor = $location = false;
 						$sql = "SELECT a.course_CRN, b.subject, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND ";
                         $wfieldname = "";
 
@@ -193,6 +190,7 @@
                                     if (preg_match('/\s/', $wfieldname)) {
                                         str_replace(" ", "%", $wfieldname);
                                     }
+									//echo $$fieldname."<br />";
 									
 									// cycle through checkboxes and add to sql statement according to whats checked else do the other adding to sql statement
 									if ($fieldname == "day") {
@@ -217,45 +215,41 @@
                             
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
-                                echo "<center><table class=\"bordered\">
-                                    <tr>
-                                        <th class='text-center'>Course CRN</th>
-										<th class='text-center'>Subject</th>
-										<th class='text-center'>Title</th>
-                                        <th class='text-center'>Day</th>
-                                        <th class='text-center'>Start</th>
-                                        <th class='text-center'>End</th>
-                                        <th class='text-center'>Instructor</th>
-                                        <th class='text-center'>Location</th>
-                                    </tr>";
+                                echo "<div id=\"wrapper\"><table id=\"course-list\" cellspacing=\"0\" cellpadding=\"0\">
+									<thead>
+										<tr>
+											<th><span>Course CRN</span></th>
+											<th><span>Subject</span></th>
+											<th><span>Title</span></th>
+											<th><span>Day</span></th>
+											<th><span>Start</span></th>
+											<th><span>End</span></th>
+											<th><span>Instructor</span></th>
+											<th><span>Location</span></th>
+										</tr>
+									</thead>";
                                     
                                 // output data of each row
+								echo "<tbody>";
                                 while($row = $result->fetch_assoc()) {
                                     echo "<tr>
-                                        <td class='text-center'>".$row["course_CRN"]."</td>
-										<td class='text-center'>".$row["subject"]."</td>
-										<td class='text-center'>".$row["title"]."</td>
-                                        <td class='text-center'>".$row["day"]."</td>
-                                        <td class='text-center'>".$row["start"]."</td>
-                                        <td class='text-center'>".$row["end"]."</td>
-                                        <td class='text-center'>".$row["instructor"]."</td>
-                                        <td class='text-center'>".$row["location"]."</td>
-                                    </tr>";
+											<td>".$row["course_CRN"]."</td>
+											<td>".$row["subject"]."</td>
+											<td>".$row["title"]."</td>
+											<td>".$row["day"]."</td>
+											<td>".$row["start"]."</td>
+											<td>".$row["end"]."</td>
+											<td>".$row["instructor"]."</td>
+											<td>".$row["location"]."</td>
+										</tr>";
                                 }
-                                    
-                                echo "</table>";
+                                echo "</tbody></table></div>";
                                 } else {
                                     echo "<br/>Nothing from the database matched your keywords! Sorry =/";
                                 }
                         }           
                         $conn->close();
                     ?>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            
-                    </div>
                 </div>
             </div>
         </div>
@@ -306,7 +300,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-4 col-sm-6">
+                <!--<div class="col-lg-4 col-sm-6">
                     <a href="#" class="portfolio-box">
                         <img src="img/portfolio/3.jpg" class="img-responsive" alt="">
                         <div class="portfolio-box-caption">
@@ -365,7 +359,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div>-->
             </div>
         </div>
     </section>
@@ -374,11 +368,12 @@
         <div class="container text-center">
             <div class="call-to-action">
                 <h2></h2>
-                <a href="#" class="btn btn-default btn-xl wow tada"></a>
+                <a href="#" class="btn btn-default btn-xl wow tada">Top</a>
             </div>
         </div>
     </aside>
 
+	<!--
     <section id="contact">
         <div class="container">
             <div class="row">
@@ -395,9 +390,11 @@
             </div>
         </div>
     </section>
+	-->
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+	<script src="js/tablesorter.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
