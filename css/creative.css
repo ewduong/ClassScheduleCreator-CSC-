@@ -474,3 +474,60 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: #222;
 }
+
+/* table stuff */
+@import url('http://fonts.googleapis.com/css?family=Amarante');
+/** page structure **/
+#wrapper {
+  display: block;
+  width: 500px;
+  background: #fff;
+  padding: 10px 17px;
+  font-family: Amarante;
+  font-size: 12px;
+  text-align: center;
+}
+
+#course-list {
+  margin: 0 auto;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+
+#course-list thead {
+  cursor: pointer;
+  background: #c9dff0;
+}
+#course-list thead tr th { 
+  font-weight: bold;
+  padding: 12px 30px;
+  padding-left: 42px;
+}
+#course-list thead tr th span { 
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+}
+
+#course-list thead tr th.headerSortUp, #course-list thead tr th.headerSortDown {
+  background: #acc8dd;
+}
+
+#course-list thead tr th.headerSortUp span {
+  background-image: url('http://i.imgur.com/SP99ZPJ.png');
+}
+#course-list thead tr th.headerSortDown span {
+  background-image: url('http://i.imgur.com/RkA9MBo.png');
+}
+
+#course-list tbody tr { 
+  color: #555;
+}
+#course-list tbody tr td {
+  text-align: center;
+  padding: 15px 10px;
+}
+#course-list tbody tr td.lalign {
+  text-align: left;
+}
