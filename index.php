@@ -79,7 +79,7 @@
                 <h1>ScheduleIt</h1>
                 <hr>
                 <p>A web application to make the process of course registration for students of Wentworth Institute of Technology easier, quicker, and more efficient. We do the work for you so you don't have to!</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Create a Schedule</a>
+                <a href="#" class="btn btn-primary btn-xl page-scroll">Create a Schedule</a>
             </div>
         </div>
     </header>
