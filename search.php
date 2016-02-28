@@ -24,7 +24,64 @@
    <!-- Script
    ================================================== -->
 	<script src="js/modernizr.js"></script>
+    <link rel='stylesheet' href='../lib/cupertino/jquery-ui.min.css' />
+    <link href='fullcalendar.css' rel='stylesheet' />
+    <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
+    <script src='lib/moment.min.js'></script>
+    <script src='lib/jquery.min.js'></script>
+    <script src='fullcalendar.min.js'></script>
+    <script src='fullcalendar.js'></script>
+        <script>
+var calendar;
+$(document).ready(function() {
+  calendar = $('#calendar');
+  calendar.fullCalendar({
+    theme: true,
+    header: false,
+    height: 525,
+    columnFormat: 'ddd',
+    defaultView: 'agendaWeek',
+    defaultDate: '2016-02-14',
+    minTime: '08:00:00',
+    maxTime: '20:00:00',
+    //events:  'eval(document.getElementById('calendar').getAttribute("data-events"))',
+    allDaySlot: false,
+    editable: false,
+    eventLimit: true,
+    eventColor: '#378006'
+  });
+ });
+ var myEvent = {
+    id: "Event1",
+    title:"my new event",
+    start: '2016-02-14T18:00:00+00:00',
+    end: '2016-02-14T19:0:00+00:00',
+    backgroundColor: "red"
+  }
+  var myEvent2 = {
+     id: "Event2",
+     title:"my new event",
+     start: '2016-02-15T13:00:00+00:00',
+     end: '2016-02-15T14:0:00+00:00'
+  }
 
+  function addEvent(event) {
+    calendar.fullCalendar('renderEvent', event);
+  }
+  function addEvents(events){
+    for (i = 0; i < events.length; i++) {
+      addEvent(events[i]);
+    }
+  }
+  function removeEvent(event){
+    calendar.fullCalendar('removeEvents', event.id);
+  }
+  function removeEvents(events){
+    for (i = 0; i < events.length; i++) {
+      removeEvent(events[i].id);
+    }
+  }
+        </script>
    <!-- Favicons
 	================================================== -->
 	<link rel="shortcut icon" href="favicon.ico" > 
@@ -116,30 +173,36 @@
 						$fields = array('course_CRN', 'day', 'start', 'end', 'instructor', 'location');
 						$course_CRN = $title = $day = $start = $end = $instructor = $location = false;
 						$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE ";
+						$wfieldname = "";
 
 						if (isset($_POST['Submit'])) {
 							foreach($fields AS $fieldname) { // Loop trough each field to see if empty or not
 								if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
-									echo 'Field '.$fieldname.' empty!';
+									//echo 'Field '.$fieldname.' empty!';
 									$$fieldname = false;
-									echo $$fieldname ? ' true <br />' : ' false <br />';
+									//echo $$fieldname ? ' true <br />' : ' false <br />';
 								} else {
 									$$fieldname = true;
-									echo $fieldname.' ';
-									echo $$fieldname ? ' true <br />' : ' false <br />';
+									//echo $fieldname.' ';
+									//echo $$fieldname ? ' true <br />' : ' false <br />';
 								}
 							}
 							
 							// sql statement generator based on text boxes filled in (still wip)
 							foreach($fields AS $fieldname) {
 								if ($$fieldname) {
+									$wfieldname = $_POST[$fieldname];
+									// if there is whitespace, replace with %
+									if (preg_match('/\s/', $wfieldname)) {
+										str_replace(" ", "%", $wfieldname);
+									}
 									$sql .= $fieldname." LIKE '%".$_POST[$fieldname]."%' AND ";
+									
 									//echo "sql generated: ".$sql."<br />";
 								}
 							}
 							
 							$sql = str_lreplace("AND", "", $sql); // remove trailing AND in sql statement
-							//echo "sql generated: ".$sql."<br />";
 							
 							/*
 							if (!(empty($_REQUEST['instructor']) && empty($_REQUEST['location']))) {
@@ -152,6 +215,8 @@
 							}
 							*/
 							
+							//echo "sql generated: ".$sql."<br />";
+							//$sql = "SELECT course_CRN, day, start, end, instructor, location FROM class WHERE instructor LIKE '%Yuna%Kim%'";
 							echo "sql generated: ".$sql."<br />";
 							
 							
@@ -168,7 +233,7 @@
 									</tr>";
 									
 								// output data of each row
-								while($row = $result->fetch_assoc()) {
+						/*		while($row = $result->fetch_assoc()) {
 									echo "<tr>
 										<td class='text-center'>".$row["course_CRN"]."</td>
 										<td class='text-center'>".$row["day"]."</td>
@@ -178,16 +243,28 @@
 										<td class='text-center'>".$row["location"]."</td>
 									</tr>";
 								}
+						*/		
+						/**/		
+                                                      //          echo "</br>"
+                                                                $del="";
+                                                                echo "<div id=\"calendar\" data-events=\"[";
+                                                                while($row = $result->fetch_assoc()) {
+                                                                   echo $del."{id:'".$row["course_CRN"]."',title:'".$row["location"]."',start:'".$row["start"]."',end:'".$row["end"]."'}"; 
+                                                                   $del=","; 
+								}
+                                                                echo "]\">";		
+								echo "</div>";
 									
+						/**/		
 								echo "</table>";
 								} else {
 									echo "0 results";
 								}
 						}			
 						$conn->close();
-					?>
-			   </div>
 
+                                 			?>
+			   </div>
 		
 	   </div> <!-- Flexslider End-->
 
