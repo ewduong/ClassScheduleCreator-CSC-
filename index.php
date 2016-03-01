@@ -35,7 +35,6 @@
 </head>
 
 <body id="page-top">
-
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -48,7 +47,6 @@
                 </button>
                  <img src="img/logo.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
                  <a class="navbar-brand page-scroll" href="#page-top">ScheduleIt</a>
-
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,10 +56,10 @@
                         <a class="page-scroll" href="#courses">Search Courses</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#about">Browse Professors</a>
+                        <a class="page-scroll" href="schedule.html">Create Schedule</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#portfolio">About Us</a>
+                        <a class="page-scroll" href="#about">About Us</a>
                     </li>
                     <li>
                         <!--<a class="page-scroll" href="#contact">Contact</a>-->
@@ -78,8 +76,7 @@
             <div class="header-content-inner">
                 <h1>ScheduleIt</h1>
                 <hr>
-                <p>A web application to make the process of course registration for students of Wentworth Institute of Technology easier, quicker, and more efficient. We do the work for you so you don't have to!</p>
-                <a href="#" class="btn btn-primary btn-xl page-scroll">Create a Schedule</a>
+                <p>A web application to make the process of course registration for students of Wentworth Institute of Technology easier, quicker, and more efficient. We do the work for you, so you don't have to!</p>
             </div>
         </div>
     </header>
@@ -138,12 +135,12 @@
 									</select>
 									<label for="title">Title: </label><input type='text' placeholder='Search...' id="search-text-input" name="title" /></p>
 									<p><label for="day">Day: </label>
-									<input type="checkbox" name="day[]" value="M"> Monday
-									<input type="checkbox" name="day[]" value="T"> Tuesday
-									<input type="checkbox" name="day[]" value="W"> Wednesday
-									<input type="checkbox" name="day[]" value="R"> Thursday
-									<input type="checkbox" name="day[]" value="F"> Friday
-									<input type="checkbox" name ="day[]" value="S"> Saturday</p>
+									<input type="checkbox" name="day[]" value="M"><label for="day">Monday</label>
+									<input type="checkbox" name="day[]" value="T"><label for="day">Tuesday</label>
+									<input type="checkbox" name="day[]" value="W"><label for="day">Wednesday</label>
+									<input type="checkbox" name="day[]" value="R"><label for="day">Thursday</label>
+									<input type="checkbox" name="day[]" value="F"><label for="day">Friday</label>
+									<input type="checkbox" name ="day[]" value="S"><label for="day">Saturday</label></p>
 									<p><label for="start">From: </label><input type="time" name="start">
 									<label for="end">To: </label><input type="time" name="end"></p>
                                     <p><label for="instructor">Professor: </label><input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
@@ -255,119 +252,36 @@
         </div>
     </section>
 
-    <section class="bg-primary" id="about">
+    <section class="bg-primary" id="schedule">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Want to Browse for Professors?</h2>
+                    <h2 class="section-heading">Want to create your own Schedule?</h2>
                     <hr class="light">
                     <p class="text-faded"></p>
-                    <a href="#" class="btn btn-default btn-xl">Browse Professors</a>
+                    <a href="schedule.html" class="btn btn-default btn-xl">Click Here!</a>
                 </div>
             </div>
         </div>
     </section>
 
-   
-
-    <section class="no-padding" id="portfolio">
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/propic2.jpg" class="img-responsive" alt="style="width:100px;height:200px;>
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-name">
-                                    Michael Golov
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/2.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!--<div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/3.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/4.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/5.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <a href="#" class="portfolio-box">
-                        <img src="img/portfolio/6.jpg" class="img-responsive" alt="">
-                        <div class="portfolio-box-caption">
-                            <div class="portfolio-box-caption-content">
-                                <div class="project-category text-faded">
-                                    Category
-                                </div>
-                                <div class="project-name">
-                                    Project Name
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>-->
-            </div>
+    <section id="about">
+        <div class="container">
+             <div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-heading">At Your Service<span>.</span></h2>
+					<hr class="primary">
+					<p class="text-muted">This is a web application to make the process of course registration for students of Wentworth Institute of Technology easier, quicker, and more efficient. The web application will allow students to filter out specific details that are desired by the student, such as not having early classes. It will create a working schedule for the next or current semester without any registration confliction. The web application will allow the student to visually create a class schedule without the need to: manually find the classes through a multi-page process, manually record CRNs for adding classes in bulk, and finally attempt to add the desired classes to the students own schedule. With the web application, the student will be able to automate the manual process just described, and achieve
+					the most optimal schedule with the least amount of complications.</p>
+					</div>
+				</div>
+			</div>
         </div>
     </section>
 
     <aside class="bg-dark">
         <div class="container text-center">
             <div class="call-to-action">
-                <h2></h2>
                 <a href="#" class="btn btn-default btn-xl wow tada">Top</a>
             </div>
         </div>
