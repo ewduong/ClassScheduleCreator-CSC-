@@ -81,72 +81,73 @@
         </div>
     </header>
 
- <section id="courses">
+	<section id="courses">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Search for Courses</h2>
                     <hr class="primary">
-                    <form method ="post" id="search-form">
-                                    <p><label for="course-crn">Course CRN: </label><input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
-									<p><label for="subject">Subject: </label><select name="subject">
-										<option></option>
-										<option>ARCH</option>
-										<option>BIOL</option>
-										<option>BMED</option>
-										<option>BLDG</option>
-										<option>TBAN</option>
-										<option>CHEM</option>
-										<option>TCAN</option>
-										<option>CIVE</option>
-										<option>CIVT</option>
-										<option>COMM</option>
-										<option>COMP</option>
-										<option>TCON</option>
-										<option>CONM</option>
-										<option>TCMC</option>
-										<option>DSGN</option>
-										<option>ECON</option>
-										<option>ELEC</option>
-										<option>TEIT</option>
-										<option>ENGR</option>
-										<option>ENGL</option>
-										<option>FMGT</option>
-										<option>TFMC</option>
-										<option>HIST</option>
-										<option>HUMN</option>
-										<option>HUSS</option>
-										<option>INDS</option>
-										<option>INTS</option>
-										<option>TJEC</option>
-										<option>LITR</option>
-										<option>MGMT</option>
-										<option>HUSS</option>
-										<option>MANF</option>
-										<option>MATH</option>
-										<option>MECH</option>
-										<option>TCAD</option>
-										<option>PHIL</option>
-										<option>POLS</option>
-										<option>TPMC</option>
-										<option>PHYC</option>
-										<option>SOCL</option>
-										<option>SURV</option>
-									</select>
-									<label for="title">Title: </label><input type='text' placeholder='Search...' id="search-text-input" name="title" /></p>
-									<p><label for="day">Day: </label>
-									<input type="checkbox" name="day[]" value="M"><label for="day">Monday</label>
-									<input type="checkbox" name="day[]" value="T"><label for="day">Tuesday</label>
-									<input type="checkbox" name="day[]" value="W"><label for="day">Wednesday</label>
-									<input type="checkbox" name="day[]" value="R"><label for="day">Thursday</label>
-									<input type="checkbox" name="day[]" value="F"><label for="day">Friday</label>
-									<input type="checkbox" name ="day[]" value="S"><label for="day">Saturday</label></p>
-									<p><label for="start">From: </label><input type="time" name="start">
-									<label for="end">To: </label><input type="time" name="end"></p>
-                                    <p><label for="instructor">Professor: </label><input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
-                                    <p><label for="location">Location: </label><input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
-                                    <input type="submit" name="Submit">
-                                </form>
+                    <form method ="post" id="search-form">	
+						<p><label for="course-crn">Course CRN: </label><input type='text' name="course_CRN" /></p>
+						<p><label for="subject">Subject: </label><select name="subject">
+								<option></option>
+								<option>ARCH</option>
+								<option>BIOL</option>
+								<option>BMED</option>
+								<option>BLDG</option>
+								<option>TBAN</option>
+								<option>CHEM</option>
+								<option>TCAN</option>
+								<option>CIVE</option>
+								<option>CIVT</option>
+								<option>COMM</option>
+								<option>COMP</option>
+								<option>TCON</option>
+								<option>CONM</option>
+								<option>TCMC</option>
+								<option>DSGN</option>
+								<option>ECON</option>
+								<option>ELEC</option>
+								<option>TEIT</option>
+								<option>ENGR</option>
+								<option>ENGL</option>
+								<option>FMGT</option>
+								<option>TFMC</option>
+								<option>HIST</option>
+								<option>HUMN</option>
+								<option>HUSS</option>
+								<option>INDS</option>
+								<option>INTS</option>
+								<option>TJEC</option>
+								<option>LITR</option>
+								<option>MGMT</option>
+								<option>HUSS</option>
+								<option>MANF</option>
+								<option>MATH</option>
+								<option>MECH</option>
+								<option>TCAD</option>
+								<option>PHIL</option>
+								<option>POLS</option>
+								<option>TPMC</option>
+								<option>PHYC</option>
+								<option>SOCL</option>
+								<option>SURV</option>
+							</select>
+							<label for="sel" class="icon-reorder"></label>
+							<label for="title">Course Title: </label><input type='text' name="title" /></p>
+							<p><label for="day">Day: </label>
+							<input type="checkbox" name="day[]" value="M"><label for="day">Monday</label>
+							<input type="checkbox" name="day[]" value="T"><label for="day">Tuesday</label>
+							<input type="checkbox" name="day[]" value="W"><label for="day">Wednesday</label>
+							<input type="checkbox" name="day[]" value="R"><label for="day">Thursday</label>
+							<input type="checkbox" name="day[]" value="F"><label for="day">Friday</label>
+							<input type="checkbox" name ="day[]" value="S"><label for="day">Saturday</label></p>
+							<p><label for="start">From: </label><input type="time" name="start">
+							<label for="end">To: </label><input type="time" name="end"></p>
+							<p><label for="instructor">Professor: </label><input type='text' name="instructor" /></p>
+							<p><label for="location">Location: </label><input type='text' name="location" /></p>
+							<input type="submit" name="Submit">
+					</form>
                     <?php
                         include('includes/dbconnect.php');
                         
@@ -183,10 +184,6 @@
                             foreach($fields AS $fieldname) {
                                 if ($$fieldname) {
                                     $wfieldname = $_POST[$fieldname];
-                                    // if there is whitespace, replace with %
-                                    if (preg_match('/\s/', $wfieldname)) {
-                                        str_replace(" ", "%", $wfieldname);
-                                    }
 									//echo $$fieldname."<br />";
 									
 									// cycle through checkboxes and add to sql statement according to whats checked else do the other adding to sql statement
@@ -199,7 +196,9 @@
 										}
 										$sql = str_lreplace("|", "' AND ", $sql);
 									} else {
-										$sql .= $fieldname." LIKE '%".$_POST[$fieldname]."%' AND ";
+										$wfieldname = preg_replace('!\s+!', '%', $wfieldname);
+										echo "wfieldname: ".$wfieldname."<br/>";
+										$sql .= $fieldname." LIKE '%".$wfieldname."%' AND ";
 									}
 									
                                 }
@@ -249,7 +248,7 @@
                     ?>
                 </div>
             </div>
-        </div>
+		</div>
     </section>
 
     <section class="bg-primary" id="schedule">
