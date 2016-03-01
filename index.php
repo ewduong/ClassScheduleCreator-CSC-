@@ -184,7 +184,6 @@
                             foreach($fields AS $fieldname) {
                                 if ($$fieldname) {
                                     $wfieldname = $_POST[$fieldname];
-									//echo $$fieldname."<br />";
 									
 									// cycle through checkboxes and add to sql statement according to whats checked else do the other adding to sql statement
 									if ($fieldname == "day") {
@@ -197,7 +196,6 @@
 										$sql = str_lreplace("|", "' AND ", $sql);
 									} else {
 										$wfieldname = preg_replace('!\s+!', '%', $wfieldname);
-										echo "wfieldname: ".$wfieldname."<br/>";
 										$sql .= $fieldname." LIKE '%".$wfieldname."%' AND ";
 									}
 									
