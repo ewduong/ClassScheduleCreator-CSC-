@@ -1,8 +1,5 @@
-<?php include("/var/www/html/password_protect.php"); ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 
@@ -54,8 +51,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <img src="img/logo.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
-                 <a class="navbar-brand page-scroll" href="#page-top">ScheduleIt</a>
+                 <img src="img/logo4.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
+                 <a class="navbar-brand page-scroll" href="index.php">ScheduleIt</a>
 
             </div>
 
@@ -76,21 +73,13 @@
                     </li>
                 </ul>
             </div>
+			
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
 
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1>ScheduleIt</h1>
-                <hr>
-                <p>A web application to make the process of course registration for students of Wentworth Institute of Technology easier, quicker, and more efficient. We do the work for you, so you don't have to!</p>
-               <!--- <a href="#" class="btn btn-primary btn-xl page-scroll">Create a Schedule</a> -->
-            </div>
-        </div>
-    </header>
+   
 
  <section id="courses">
         <div class="container">
@@ -267,7 +256,7 @@
 								echo "<div style=\"background-color:transparent\" id='calendar'></div>";
 								echo "<button style=\"background-color:transparent\" id='AddanEvent' onclick=\"addEvents($del);style.display = 'none'\">ADD EVENTS</button>";
 								echo "<button style=\"background-color:transparent\" id='print' onclick=\"printPage()\">Print Schedule</button>";
-								echo "<button style=\"background-color:transparent\" id='removeEvent' onclick=\"removeEvents($del)\">REMOVE EVENT</button>";
+								//echo "<button style=\"background-color:transparent\" id='removeEvent' onclick=\"removeEvents($del)\">REMOVE EVENT</button>";
 							} else {
 								echo "<br/>Nothing from the database matched your keywords! Sorry =/";
                             }
@@ -291,32 +280,7 @@
         </div>
     </section>
 
-    <section class="bg-primary" id="schedule">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">Want to create your own Schedule?</h2>
-                    <hr class="light">
-                    <p class="text-faded"></p>
-                    <a href="schedule.html" class="btn btn-default btn-xl">Click Here!</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-             <div class="row">
-				<div class="col-lg-12 text-center">
-					<h2 class="section-heading">At Your Service<span>.</span></h2>
-					<hr class="primary">
-					<p class="text-muted">This is a web application to make the process of course registration for students of Wentworth Institute of Technology easier, quicker, and more efficient. The web application will allow students to filter out specific details that are desired by the student, such as not having early classes. It will create a working schedule for the next or current semester without any registration confliction. The web application will allow the student to visually create a class schedule without the need to: manually find the classes through a multi-page process, manually record CRNs for adding classes in bulk, and finally attempt to add the desired classes to the students own schedule. With the web application, the student will be able to automate the manual process just described, and achieve
-					the most optimal schedule with the least amount of complications.</p>
-					</div>
-				</div>
-			</div>
-        </div>
-    </section>
+  
 
     <aside class="bg-dark">
         <div class="container text-center">
@@ -364,68 +328,6 @@
 	<!-- Calender Stuff -->
     <script src='lib/moment.min.js'></script>
     <script src='fullcalendar.min.js'></script>
-	
-	
-	
-	
-	<script>
-		function passWord() {
-			var testV = 1;
-			var pass1 = prompt('Please Enter Your Password',' ');
-			while (testV < 3) {
-			if (!pass1) 
-			history.go(-1);
-			if (pass1.toLowerCase() == "letmein") {
-			alert('You Got it Right!');
-			window.open('index.php');
-			break;
-			} 
-			testV+=1;
-			var pass1 = 
-			prompt('Access Denied - Password Incorrect, Please Try Again.','Password');
-			}
-			if (pass1.toLowerCase()!="password" & testV ==3) 
-			history.go(-1);
-			return " ";
-		} 
-	</script>
-		<CENTER>
-		<FORM>
-		<input type="button" value="Enter Protected Area" onClick="passWord()">
-		</FORM>
-		</CENTER>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	<script>
       var calendar;
@@ -483,14 +385,6 @@
 		}
 
       </script>
-	  
-
-	  
-	  
-	  
-	  
-	  
-	  
 
 </body>
 

@@ -39,12 +39,12 @@
     <script src='lib/moment.min.js'></script>
     <script src='lib/jquery.min.js'></script>
     <script src='fullcalendar.min.js'></script>
-
+   
     <script>
       var calendar;
       $(document).ready(function() {
-        calendar = $('#calendar');
-        calendar.fullCalendar({
+	calendar = $('#calendar');
+       	calendar.fullCalendar({
           theme: true,
           header: false,
           height: 525,
@@ -56,19 +56,10 @@
           allDaySlot: false,
           editable: false,
           eventLimit: true,
-          eventColor: '#378006',
-          events: [
-				{
-          id: "Event1",
-          title:"my new event",
-          start: '2016-02-14T18:00:00+00:00',
-          end: '2016-02-14T19:0:00+00:00',
-          backgroundColor: "red"
-				}
-			]
+          eventColor: '#378006'
         });
+
        });
-       
        var myEvent = {
           id: "Event1",
           title:"my new event",
@@ -99,26 +90,15 @@
             removeEvent(events[i].id);
           }
         }
+	function printPage(){
+		window.print();
+	}
 
       </script>
-      <style>
 
-      	body {
-      		margin: 40px 10px;
-      		padding: 0;
-      		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-      		font-size: 14px;
-      	}
-
-      	#calendar {
-      		max-width: 700px;
-      		margin: 0 auto;
-      	}
-
-        </style>
 </head>
 
-<body id="page-top">
+<body style="background-color:black" id="page-top">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -156,10 +136,22 @@
     </nav>
 
     <header>
-    <?php
- include('includes/dbconnect.php');
+<div class="header-content">
+            <div class="header-content-inner">
+                <form method ="post" id="search-form">
+                                    <p>Course CRN: <input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
+                                    <p>Day: <input type='text' placeholder='Search...' id="search-text-input" name="day" /></p>
+                                    <p>Start: <input type='text' placeholder='Search...' id="search-text-input" name="start" /></p>
+                                    <p>End: <input type='text' placeholder='Search...' id="search-text-input" name="end" /></p>
+                                    <p>Professor: <input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
+                                    <p>Location: <input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
+                                    <input type="submit" name="Submit" style="display: none">
+                                </form>
 
- // replace last occurence of $search string (for sql statement remove last AND)
+				    <?php
+ 					include('includes/dbconnect.php');
+
+ 	// replace last occurence of $search string (for sql statement remove last AND)
  function str_lreplace($search, $replace, $subject) {
          $pos = strrpos($subject, $search);
 
@@ -246,25 +238,77 @@
  */
  /**/
        //          echo "</br>"
-     $del="";
-     echo "<div id=\"calendar\" data-events=\"[";
-     while($row = $result->fetch_assoc()) {
-        echo $del."{id:'".$row["course_CRN"]."',title:'".$row["location"]."',start:'".$row[     "start"]."',end:'".$row["end"]."'}";
-        $del=",";
-     }
-     echo "]\">";
-     echo "</div>";
+
+     echo "<div style=\"background-color:white\" id='calendar'></div>";
+     $del="[";
+      while($row = $result->fetch_assoc()) {
+		
+		if($row["day"] == "M"){
+        		$del .= "{id: '".$row["course_CRN"]."', title: '".$row["location"]."', start: '2016-02-15T".test($row["start"])."', end: '2016-02-15T".test($row["end"])."'}";
+		}
+		else if($row["day"] == "T"){
+                        $del .= "{id: '".$row["course_CRN"]."', title: '".$row["location"]."', start: '2016-02-16T".test($row["start"])."', end: '2016-02-16T".test($row["end"])."'}";
+                }
+		 else if($row["day"] == "W"){
+                        $del .= "{id: '".$row["course_CRN"]."', title: '".$row["location"]."', start: '2016-02-17T".test($row["start"])."', end: '2016-02-17T".test($row["end"])."'}";
+                }
+		 else if($row["day"] == "R"){
+                        $del .= "{id: '".$row["course_CRN"]."', title: '".$row["location"]."', start: '2016-02-18T".test($row["start"])."', end: '2016-02-18T".test($row["end"])."'}";
+                }
+		 else if($row["day"] == "F"){
+                        $del .= "{id: '".$row["course_CRN"]."', title: '".$row["location"]."', start: '2016-02-19T".test($row["start"])."', end: '2016-02-19T".test($row["end"])."'}";
+                }
+		 else if($row["day"] == "S"){
+                        $del .= "{id: '".$row["course_CRN"]."', title: '".$row["location"]."', start: '2016-02-14T".test($row["start"])."', end: '2016-02-14T".test($row["end"])."'}";
+                }
+     
+		$del.=", ";
+	}
+	$del=substr($del,0,strlen($del)-2)."]";
+		     	
+			echo "<div style=\"background-color:transparent\" id='calendar' ></div>";
+                        echo "<button style=\"background-color:transparent\" id='AddanEvent' onclick=\"addEvents($del);style.display = 'none'\">ADD EVENTS</button>";
+                        //echo "<button style=\"background-color:transparent\" id='removeEvent' onclick=\"removeEvents($del)\">REMOVE EVENT</button>";
+
+
                                                 /**/
-                                                                echo "</table>";
+     //                                                           echo "</table>";
                                                                 } else {
                                                                         echo "0 results";
                                                                 }
                                                 }
                                                 $conn->close();
-     ?>      
+		
+		function test($string){
+			$hour = intval(substr($string,0,2));
+			if( $hour >= 1 && $hour < 8){
+				$hour += 12;
+				return (strval($hour).substr($string,2));
+			}
+			else{
+				return ($string);
+			}
+		}
+	?>
+	<!--<div style="background-color:white" id='calendar'></div>      
       <button style="background-color:transparent" id='AddanEvent' onclick="addEvents([myEvent,myEvent2])">ADD AN EVENT</button>
-      <button style="background-color:transparent" id='removeEvent' onclick="removeEvent([myEvent,myEvent2])">REMOVE EVENT</button>
+      <button style="background-color:transparent" id='removeEvent' onclick="removeEvent([myEvent,myEvent2])">REMOVE EVENT</button>-->
+	<button style="background-color:transparent" id='print' onclick="printPage()">Print Schedule</button>
     </header>
+
+	<!-- jQuery
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>-->
 
 </body>
 </html>

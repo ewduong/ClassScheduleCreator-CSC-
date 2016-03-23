@@ -16,7 +16,7 @@ body {
 
 hr {
     max-width: 50px;
-    border-color: #fac303;
+    border-color: #f05f40;
     border-width: 3px;
 }
 
@@ -25,7 +25,7 @@ hr.light {
 }
 
 a {
-    color: #000000;
+    color: #f05f40;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -33,7 +33,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #fac303;
+    color: #eb3812;
 }
 
 h1,
@@ -52,7 +52,7 @@ p {
 }
 
 .bg-primary {
-    background-color: #fac303;
+    background-color: #f05f40;
 }
 
 .bg-dark {
@@ -89,7 +89,7 @@ aside {
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
-    color: #fac303;
+    color: #f05f40;
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
@@ -107,12 +107,12 @@ aside {
 
 .navbar-default .nav > li>a:hover,
 .navbar-default .nav>li>a:focus:hover {
-    color: #fac303;
+    color: #f05f40;
 }
 
 .navbar-default .nav > li.active>a,
 .navbar-default .nav>li.active>a:focus {
-    color: #fac303!important;
+    color: #f05f40!important;
     background-color: transparent;
 }
 
@@ -153,7 +153,7 @@ aside {
 
     .navbar-default.affix .navbar-header .navbar-brand {
         font-size: 14px;
-        color: #fac303;
+        color: #f05f40;
     }
 
     .navbar-default.affix .navbar-header .navbar-brand:hover,
@@ -168,7 +168,7 @@ aside {
 
     .navbar-default.affix .nav > li>a:hover,
     .navbar-default.affix .nav>li>a:focus:hover {
-        color: #fac303;
+        color: #f05f40;
     }
 }
 
@@ -178,7 +178,7 @@ header {
     min-height: auto;
     text-align: center;
     color: #fff;
-    background-image: url(../img/header.jpg);
+    background-image: url(../img/header2.jpg);
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -208,7 +208,7 @@ header .header-content .header-content-inner p {
     margin-bottom: 50px;
     font-size: 16px;
     font-weight: 300;
-    color: rgba(255,255,255,255);
+    color: rgba(255,255,255,.7);
 }
 
 @media(min-width:768px) {
@@ -274,7 +274,7 @@ header .header-content .header-content-inner p {
     text-align: center;
     color: #fff;
     opacity: 0;
-    background: #fac303;
+    background: rgba(240,95,64,.9);
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -323,7 +323,7 @@ header .header-content .header-content-inner p {
 }
 
 .text-primary {
-    color: #fac303;
+    color: #f05f40;
 }
 
 .no-gutter > [class*=col-] {
@@ -332,9 +332,9 @@ header .header-content .header-content-inner p {
 }
 
 .btn-default {
-    border-color: #000000;
-    color: #fff;
-    background-color: #000000;
+    border-color: #fff;
+    color: #222;
+    background-color: #fff;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -346,9 +346,9 @@ header .header-content .header-content-inner p {
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-    border-color: #000000;
-    color: #fac303;
-    background-color: #000000;
+    border-color: #ededed;
+    color: #222;
+    background-color: #f2f2f2;
 }
 
 .btn-default:active,
@@ -385,9 +385,9 @@ fieldset[disabled] .btn-default.active {
 }
 
 .btn-primary {
-    border-color: #000000;
+    border-color: #f05f40;
     color: #fff;
-    background-color: #000000;
+    background-color: #f05f40;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
@@ -399,9 +399,9 @@ fieldset[disabled] .btn-default.active {
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
-    border-color: #000000;
-    color: #fac303;
-    background-color: #000000;
+    border-color: #ed431f;
+    color: #fff;
+    background-color: #ee4b28;
 }
 
 .btn-primary:active,
@@ -428,12 +428,12 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-    border-color: #fac303;
-    background-color: #fac303;
+    border-color: #f05f40;
+    background-color: #f05f40;
 }
 
 .btn-primary .badge {
-    color: #fac303;
+    color: #f05f40;
     background-color: #fff;
 }
 
@@ -473,81 +473,4 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: #222;
-}
-
-/* for the aligning forms (wip)
-label {
-    display: inline-block;
-    float: left;
-    clear: left;
-    width: 250px;
-    text-align: right;
-}
-
-select {
-	display: inline-block;
-	float: left;
-}
-
-input, select {
-  display: inline-block;
-  float: left;
-}
-*/
-
-/* table stuff */
-@import url('http://fonts.googleapis.com/css?family=Amarante');
-/** page structure **/
-#wrapper {
-  display: block;
-  width: 500px;
-  background: #fff;
-  padding: 10px 17px;
-  font-family: Amarante;
-  font-size: 12px;
-  text-align: center;
-}
-
-#course-list {
-  margin: 0 auto;
-  font-size: 1.2em;
-  margin-bottom: 15px;
-}
-
-
-#course-list thead {
-  cursor: pointer;
-  background: #c9dff0;
-}
-#course-list thead tr th { 
-  font-weight: bold;
-  padding: 12px 30px;
-  padding-left: 42px;
-}
-#course-list thead tr th span { 
-  padding-right: 20px;
-  background-repeat: no-repeat;
-  background-position: 100% 100%;
-}
-
-#course-list thead tr th.headerSortUp, #course-list thead tr th.headerSortDown {
-  background: #acc8dd;
-}
-
-#course-list thead tr th.headerSortUp span {
-  background-image: url('http://i.imgur.com/SP99ZPJ.png');
-}
-#course-list thead tr th.headerSortDown span {
-  background-image: url('http://i.imgur.com/RkA9MBo.png');
-}
-
-#course-list tbody tr { 
-  color: #555;
-}
-#course-list tbody tr td {
-  text-align: center;
-  padding: 15px 10px;
-}
-#course-list tbody tr td.lalign {
-  text-align: left;
 }

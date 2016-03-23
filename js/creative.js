@@ -48,5 +48,5 @@
 })(jQuery); // End of use strict
 
 $(function(){
-  $('#keywords').tablesorter(); 
+	$('#course-list').tablesorter(); 
 });
