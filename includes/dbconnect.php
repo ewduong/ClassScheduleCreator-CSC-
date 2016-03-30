@@ -1,11 +1,10 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "Csc2016!";
-$db = "spring_2016";
+$username = "scheduleit";
+$password = "Software2016!";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $db);
+$conn = new mysqli($servername, $username, $password);
 
 // Check connection
 if ($conn->connect_error) {
