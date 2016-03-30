@@ -26,9 +26,10 @@
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 	
 	<!-- Calender Stuff -->
-	<link rel='stylesheet' href='../ScheduleIT/lib/cupertino/jquery-ui.min.css' />
+	<link rel='stylesheet' href='../lib/cupertino/jquery-ui.min.css' />
     <link href='fullcalendar.css' rel='stylesheet' />
     <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -52,6 +53,7 @@
                 </button>
                  <img src="img/logo.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
                  <a class="navbar-brand page-scroll" href="index.php">ScheduleIt</a>
+
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -80,31 +82,17 @@
         <!-- /.container-fluid -->
     </nav>
 
-	<header id="searchHeader">
+	<header>
 		<section id="courses">
-			<div class="container">
+			<div class="conatiner">
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<h2 class="section-heading">Search for Courses</h2>
 						<hr class="primary">
-						<form method="post" id="ui_element" class="sb_wrapper">
-							<p>
-								<select id="season_dropdown" name="season">
-									<option>Spring 2016</option>
-									<option>Fall 2016</option>
-								</select>
-							</p>
-							<p id="search-textbox">
-								<span class="sb_down"></span>
-								<input class="sb_input" type="text"/>
-								<input class="sb_search" type="submit" name="Submit" value=""/>
-							</p>
-							<ul class="sb_dropdown">
-								<li class="sb_filter">Filter your search</li>
-								<li><input type="checkbox" id="course-crn-checkbox"/><label class="search-label" for="course-crn"><strong>Course CRN</strong></label></li>
-								<input type="text" id="course-crn-textbox" class="search-textbox" name="course_CRN" />
-								<li><input type="checkbox" id="subject-checkbox"/><label class="search-label" for="subject">Subject</label></li>
-								<select id="subject-textbox" class="search-textbox" name="subject">
+						<form method ="post" id="search-form">
+							<p><label for="course-crn">Course CRN: </label><input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
+							<p><label for="subject">Subject: </label>
+								<select name="subject">
 									<option></option>
 									<option>ARCH</option>
 									<option>BIOL</option>
@@ -148,37 +136,20 @@
 									<option>SOCL</option>
 									<option>SURV</option>
 								</select>
-								<li><input type="checkbox" id="title-checkbox"/><label class="search-label" for="title">Title</label></li>
-								<input type="text" id="title-textbox" class="search-textbox" name="title" />
-								<li><input type="checkbox" id="day-checkbox"/><label class="search-label" for="day">Day</label></li>
-								<div id="dayBox" class="search-textbox">
-									<table id="dayTable">
-										<thead>
-											<tr>
-												<td><input type="checkbox" name="day[]" value="M"><label id="dayColor" for="day">Monday</label></td>
-												<td><input type="checkbox" name="day[]" value="T"><label id="dayColor" for="day">Tuesday</label></td>
-												<td><input type="checkbox" name="day[]" value="W"><label id="dayColor" for="day">Wednesday</label></td>
-											</tr>
-										<thead>
-										<tbody>
-											<tr>
-												<td><input type="checkbox" name="day[]" value="R"><label id="dayColor" for="day">Thursday</label></td>
-												<td><input type="checkbox" name="day[]" value="F"><label id="dayColor" for="day">Friday</label></td>
-												<td><input type="checkbox" name ="day[]" value="S"><label id="dayColor" for="day">Saturday</label></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<li><input type="checkbox" id="start-checkbox"/><label class="search-label" for="start">Start Time</label></li>
-								<input class="search-textbox" id="start-textbox" type="time" name="start">
-								<li><input type="checkbox" id="end-checkbox"/><label class="search-label" for="end">End Time</label></li>
-								<input class="search-textbox" id="end-textbox" type="time" name="end">
-								<li><input type="checkbox" id="instructor-checkbox"/><label class="search-label" for="instructor">Professor</label></li>
-								<input type="text" id="instructor-textbox" class="search-textbox" name="instructor" />
-								<li><input type="checkbox" id="location-checkbox"/><label class="search-label" for="location">Location</label></li>
-								<input type="text" id="location-textbox" class="search-textbox" name="location" />
-							</ul>
-						</form>	
+							<label for="title">Title: </label><input type='text' placeholder='Search...' id="search-text-input" name="title" /></p>
+							<p><label for="day">Day: </label>
+							<input type="checkbox" name="day[]" value="M"><label for="day">Monday</label>
+							<input type="checkbox" name="day[]" value="T"><label for="day">Tuesday</label>
+							<input type="checkbox" name="day[]" value="W"><label for="day">Wednesday</label>
+							<input type="checkbox" name="day[]" value="R"><label for="day">Thursday</label>
+							<input type="checkbox" name="day[]" value="F"><label for="day">Friday</label>
+							<input type="checkbox" name ="day[]" value="S"><label for="day">Saturday</label></p>
+							<p><label for="start">From: </label><input type="time" name="start">
+							<label for="end">To: </label><input type="time" name="end"></p>
+							<p><label for="instructor">Professor: </label><input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
+							<p><label for="location">Location: </label><input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
+							<input type="submit" name="Submit">
+						</form>
 					</div>
 				</div>
 			</div>
@@ -205,13 +176,6 @@
 		$wfieldname = "";
 
 		if (isset($_POST['Submit'])) {
-			
-			if ($_POST['season'] == "Spring 2016") {
-				$conn->select_db('spring_2016');
-			} else if ($_POST['season'] == "Fall 2016") {
-				$conn->select_db('fall_2016');
-			}	
-		
 			foreach($fields AS $fieldname) { // Loop trough each field to see if empty or not
 				if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
 					$$fieldname = false;
@@ -250,7 +214,6 @@
 						<div class=\"container\">
 							<div class=\"row\">
 								<div class=\"col-lg-12 text-center\">";
-				echo "<p><h2 class=\"section-heading\">".$_POST['season']."</h2></p>";
 				echo "<div id=\"wrapper\"><table id=\"course-list\" cellspacing=\"0\" cellpadding=\"0\">
 					<thead>
 						<tr>
@@ -280,11 +243,49 @@
 						</tr>";
 				}
 				echo "</tbody></table></div></div></div></section>";
+				
+				// output data of each row onto calendar
+				echo "<div style=\"background-color:white\" id='calendar'></div>";
+				$del="[";
+				$result = $conn->query($sql);
+				while($row = $result->fetch_assoc()) {
+					if($row["day"] == "M"){
+							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-15T".test($row["start"])."', end: '2016-02-15T".test($row["end"])."'}";
+					} else if($row["day"] == "T"){
+							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-16T".test($row["start"])."', end: '2016-02-16T".test($row["end"])."'}";
+					} else if($row["day"] == "W"){
+							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-17T".test($row["start"])."', end: '2016-02-17T".test($row["end"])."'}";
+					} else if($row["day"] == "R"){
+							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-18T".test($row["start"])."', end: '2016-02-18T".test($row["end"])."'}";
+					} else if($row["day"] == "F"){
+							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-19T".test($row["start"])."', end: '2016-02-19T".test($row["end"])."'}";
+					} else if($row["day"] == "S"){
+							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-20T".test($row["start"])."', end: '2016-02-20T".test($row["end"])."'}";
+					}
+					$del.=", ";
+				}
+				$del=substr($del,0,strlen($del)-2)."]";
+
+				echo "<div style=\"background-color:transparent\" id='calendar'></div>";
+				echo "<button style=\"background-color:transparent\" id='AddanEvent' onclick=\"addEvents($del);style.display = 'none'\">ADD EVENTS</button>";
+				echo "<button style=\"background-color:transparent\" id='print' onclick=\"printPage()\">Print Schedule</button>";
+				echo "<button style=\"background-color:transparent\" id='removeEvent' onclick=\"removeEvents($del)\">REMOVE EVENT</button>";
 			} else {
 				echo "<br/>Nothing from the database matched your keywords! Sorry =/";
 			}
 		}															
 	$conn->close();
+		
+	function test($string){
+		$hour = intval(substr($string,0,2));
+		if( $hour >= 1 && $hour < 8){
+			$hour += 12;
+			return (strval($hour).substr($string,2));
+		}
+		else{
+			return ($string);
+		}
+	}
 	?>
 
     <aside class="bg-dark">
@@ -296,6 +297,7 @@
         </div>
     </aside>
 
+	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 	<script src="js/tablesorter.js"></script>
@@ -314,5 +316,91 @@
 	<!-- Calender Stuff -->
     <script src='lib/moment.min.js'></script>
     <script src='fullcalendar.min.js'></script>
+	
+	<script>
+      var calendar;
+      $(document).ready(function() {
+	calendar = $('#calendar');
+       	calendar.fullCalendar({
+          theme: true,
+          header: false,
+          height: 525,
+          columnFormat: 'ddd',
+          defaultView: 'agendaWeek',
+          defaultDate: '2016-02-14',
+          minTime: '08:00:00',
+          maxTime: '20:00:00',
+          allDaySlot: false,
+          editable: false,
+          eventLimit: true,
+          eventColor: '#378006'
+        });
+
+       });
+       var myEvent = {
+          id: "Event1",
+          title:"my new event",
+          start: '2016-02-14T18:00:00+00:00',
+          end: '2016-02-14T19:0:00+00:00',
+          backgroundColor: "red"
+        }
+        var myEvent2 = {
+           id: "Event2",
+           title:"my new event",
+           start: '2016-02-15T13:00:00+00:00',
+           end: '2016-02-15T14:0:00+00:00'
+        }
+
+        function addEvent(event) {
+          calendar.fullCalendar('renderEvent', event);
+        }
+        function addEvents(events){
+          for (i = 0; i < events.length; i++) {
+            addEvent(events[i]);
+          }
+        }
+        function removeEvent(event){
+          calendar.fullCalendar('removeEvents', event.id);
+        }
+        function removeEvents(events){
+          for (i = 0; i < events.length; i++) {
+            removeEvent(events[i].id);
+          }
+        }
+	
+		function printPage(){
+		  window.print();
+		}
+
+      </script>
+	  
+	<script>
+		$(function() {
+  
+  transition_timeout = 40;
+  
+  $('.title_items').click(function() {
+    
+    current = $(this).next().find('li');
+    
+    $(this).toggleClass('active');
+    current.toggleClass('visible');
+    
+    if ($(this).hasClass('active')) {
+      for( i = 0; i <= current.length; i++ ) {
+        $(current[i]).css('transition-delay', transition_timeout * i + 'ms');
+      }
+    }
+    else {
+      for( i = current.length, j = -1; i >= 0; i--, j++) {
+        $(current[i]).css('transition-delay', transition_timeout * j + 'ms');
+      }
+    }
+  
+  });
+});
+	</script>
+
 </body>
+
 </html>

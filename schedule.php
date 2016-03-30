@@ -24,12 +24,13 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
+	<link rel="stylesheet" href="css/buttons.css" type="text/css">
 	
 	<!-- Calender Stuff -->
 	<link rel='stylesheet' href='../lib/cupertino/jquery-ui.min.css' />
     <link href='fullcalendar.css' rel='stylesheet' />
     <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
-
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -51,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <img src="img/logo4.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
+                 <img src="img/logo.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
                  <a class="navbar-brand page-scroll" href="index.php">ScheduleIt</a>
 
             </div>
@@ -61,6 +62,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="page-scroll" href="index.php">Home</a>
+                    </li>
+					  <li>
+                        <a class="page-scroll" href="search.php">Search Courses</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="schedule.php">Create Schedule</a>
@@ -79,208 +83,127 @@
         <!-- /.container-fluid -->
     </nav>
 
-   
-
- <section id="courses">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Search for Courses</h2>
-                    <hr class="primary">
-                    <form method ="post" id="search-form">
-                                    <p><label for="course-crn">Course CRN: </label><input type='text' placeholder='Search...' id="search-text-input" name="course_CRN" /></p>
-									<p><label for="subject">Subject: </label><select name="subject">
-										<option></option>
-										<option>ARCH</option>
-										<option>BIOL</option>
-										<option>BMED</option>
-										<option>BLDG</option>
-										<option>TBAN</option>
-										<option>CHEM</option>
-										<option>TCAN</option>
-										<option>CIVE</option>
-										<option>CIVT</option>
-										<option>COMM</option>
-										<option>COMP</option>
-										<option>TCON</option>
-										<option>CONM</option>
-										<option>TCMC</option>
-										<option>DSGN</option>
-										<option>ECON</option>
-										<option>ELEC</option>
-										<option>TEIT</option>
-										<option>ENGR</option>
-										<option>ENGL</option>
-										<option>FMGT</option>
-										<option>TFMC</option>
-										<option>HIST</option>
-										<option>HUMN</option>
-										<option>HUSS</option>
-										<option>INDS</option>
-										<option>INTS</option>
-										<option>TJEC</option>
-										<option>LITR</option>
-										<option>MGMT</option>
-										<option>HUSS</option>
-										<option>MANF</option>
-										<option>MATH</option>
-										<option>MECH</option>
-										<option>TCAD</option>
-										<option>PHIL</option>
-										<option>POLS</option>
-										<option>TPMC</option>
-										<option>PHYC</option>
-										<option>SOCL</option>
-										<option>SURV</option>
-									</select>
-									<label for="title">Title: </label><input type='text' placeholder='Search...' id="search-text-input" name="title" /></p>
-									<p><label for="day">Day: </label>
-									<input type="checkbox" name="day[]" value="M"><label for="day">Monday</label>
-									<input type="checkbox" name="day[]" value="T"><label for="day">Tuesday</label>
-									<input type="checkbox" name="day[]" value="W"><label for="day">Wednesday</label>
-									<input type="checkbox" name="day[]" value="R"><label for="day">Thursday</label>
-									<input type="checkbox" name="day[]" value="F"><label for="day">Friday</label>
-									<input type="checkbox" name ="day[]" value="S"><label for="day">Saturday</label></p>
-									<p><label for="start">From: </label><input type="time" name="start">
-									<label for="end">To: </label><input type="time" name="end"></p>
-                                    <p><label for="instructor">Professor: </label><input type='text' placeholder='Search...' id="search-text-input" name="instructor" /></p>
-                                    <p><label for="location">Location: </label><input type='text' placeholder='Search...' id="search-text-input" name="location" /></p>
-                                    <input type="submit" name="Submit">
-                                </form>
-                    <?php
-                        include('includes/dbconnect.php');
-                        
-                        // replace last occurence of $search string (for sql statement remove last AND)
-                        function str_lreplace($search, $replace, $subject) {
-                            $pos = strrpos($subject, $search);
-
-                            if($pos !== false) {
-                                $subject = substr_replace($subject, $replace, $pos, strlen($search));
-                            }
-
-                            return $subject;
-                        }
-
-						$fields = array('course_CRN', 'subject', 'title', 'day', 'start', 'end', 'instructor', 'location');
-                        $course_CRN = $subject = $title = $day = $start = $end = $instructor = $location = false;
-						$sql = "SELECT a.course_CRN, b.subject, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND ";
-                        $wfieldname = "";
-
-                        if (isset($_POST['Submit'])) {
-                            foreach($fields AS $fieldname) { // Loop trough each field to see if empty or not
-                                if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
-                                    $$fieldname = false;
-                                } else {
-                                    $$fieldname = true;
-                                }
-                            }
-                            
-                            // sql statement generator based on text boxes and checkboxes filled in
-                            foreach($fields AS $fieldname) {
-                                if ($$fieldname) {
-                                    $wfieldname = $_POST[$fieldname];
-									
-									// cycle through checkboxes and add to sql statement according to whats checked else do the other adding to sql statement
-									if ($fieldname == "day") {
-										$sql .= $fieldname." REGEXP '";
-										if (!empty($_POST['day'])) {
-											foreach($_POST['day'] as $day) {
-												$sql .= $day."|";
-											}
-										}
-										$sql = str_lreplace("|", "' AND ", $sql);
-									} else {
-										$wfieldname = preg_replace('!\s+!', '%', $wfieldname);
-										$sql .= $fieldname." LIKE '%".$wfieldname."%' AND ";
-									}
-									
-                                }
-                            }
-                            
-                            $sql = str_lreplace("AND", "", $sql); // remove trailing AND in sql statement
-                            
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                echo "<div id=\"wrapper\"><table id=\"course-list\" cellspacing=\"0\" cellpadding=\"0\">
-									<thead>
-										<tr>
-											<th><span>Course CRN</span></th>
-											<th><span>Subject</span></th>
-											<th><span>Title</span></th>
-											<th><span>Day</span></th>
-											<th><span>Start</span></th>
-											<th><span>End</span></th>
-											<th><span>Instructor</span></th>
-											<th><span>Location</span></th>
-										</tr>
-									</thead>";
-                                    
-                                // output data of each row onto table
-								echo "<tbody>";
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<tr>
-											<td>".$row["course_CRN"]."</td>
-											<td>".$row["subject"]."</td>
-											<td>".$row["title"]."</td>
-											<td>".$row["day"]."</td>
-											<td>".$row["start"]."</td>
-											<td>".$row["end"]."</td>
-											<td>".$row["instructor"]."</td>
-											<td>".$row["location"]."</td>
-										</tr>";
-                                }
-                                echo "</tbody></table></div>";
-								
-								// output data of each row onto calendar
-								echo "<div style=\"background-color:white\" id='calendar'></div>";
-								$del="[";
-								$result = $conn->query($sql);
-								while($row = $result->fetch_assoc()) {
-									if($row["day"] == "M"){
-											$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-15T".test($row["start"])."', end: '2016-02-15T".test($row["end"])."'}";
-									} else if($row["day"] == "T"){
-											$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-16T".test($row["start"])."', end: '2016-02-16T".test($row["end"])."'}";
-									} else if($row["day"] == "W"){
-											$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-17T".test($row["start"])."', end: '2016-02-17T".test($row["end"])."'}";
-									} else if($row["day"] == "R"){
-											$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-18T".test($row["start"])."', end: '2016-02-18T".test($row["end"])."'}";
-									} else if($row["day"] == "F"){
-											$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-19T".test($row["start"])."', end: '2016-02-19T".test($row["end"])."'}";
-									} else if($row["day"] == "S"){
-											$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." @ ".$row["location"]."', start: '2016-02-20T".test($row["start"])."', end: '2016-02-20T".test($row["end"])."'}";
-									}
-									$del.=", ";
-								}
-								$del=substr($del,0,strlen($del)-2)."]";
-		     	
-								echo "<div style=\"background-color:transparent\" id='calendar'></div>";
-								echo "<button style=\"background-color:transparent\" id='AddanEvent' onclick=\"addEvents($del);style.display = 'none'\">ADD EVENTS</button>";
-								echo "<button style=\"background-color:transparent\" id='print' onclick=\"printPage()\">Print Schedule</button>";
-								//echo "<button style=\"background-color:transparent\" id='removeEvent' onclick=\"removeEvents($del)\">REMOVE EVENT</button>";
-							} else {
-								echo "<br/>Nothing from the database matched your keywords! Sorry =/";
-                            }
-						}
-					//}																
-                    $conn->close();
+	<header>
+		<section id="courses">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<h2 class="section-heading">Enter Course Requirement</h2>
+						<hr class="primary">
+						<form method ="post" id="search-form">
+						<div class="multi-field-wrapper">
+							<div class="multi-fields">
+								<div class="multi-field">
+									<label for="subject-label[]">Subject: </label>
+										<select name="subject[]" class="button button-rounded">
+											<option value="0"></option>
+											<option value="1">ARCH</option>
+											<option value="2">BIOL</option>
+											<option value="3">BMED</option>
+											<option value="4">BLDG</option>
+											<option value="5">TBAN</option>
+											<option value="6">CHEM</option>
+											<option value="7">TCAN</option>
+											<option value="8">CIVE</option>
+											<option value="9">CIVT</option>
+											<option value="10">COMM</option>
+											<option value="11">COMP</option>
+											<option value="12">TCON</option>
+											<option value="13">CONM</option>
+											<option value="14">TCMC</option>
+											<option value="15">DSGN</option>
+											<option value="16">ECON</option>
+											<option value="17">ELEC</option>
+											<option value="18">TEIT</option>
+											<option value="19">ENGR</option>
+											<option value="20">ENGL</option>
+											<option value="21">FMGT</option>
+											<option value="22">TFMC</option>
+											<option value="23">HIST</option>
+											<option value="24">HUMN</option>
+											<option value="25">HUSS</option>
+											<option value="26">INDS</option>
+											<option value="27">INTS</option>
+											<option value="28">TJEC</option>
+											<option value="29">LITR</option>
+											<option value="30">MGMT</option>
+											<option value="31">HUSS</option>
+											<option value="32">MANF</option>
+											<option value="33">MATH</option>
+											<option value="34">MECH</option>
+											<option value="35">TCAD</option>
+											<option value="36">PHIL</option>
+											<option value="37">POLS</option>
+											<option value="38">TPMC</option>
+											<option value="39">PHYC</option>
+											<option value="40">SOCL</option>
+											<option value="41">SURV</option>
+										</select>
+									<label for="course-label[]">Course #: </label>
+									<input type='text' placeholder='Search...' id="course-search-box-thing" name="course[]"/>
+									<button type="button" class="remove-field button button-box button-small"><i class="fa fa-minus"></i></button>
+								</div>
+							</div>
+							<p><button type="button" class="add-field button button-box"><i class="fa fa-plus"></i></button></p>
+							<p><input type="submit" name="Submit" class="button button-pill button-flat-primary"></p>
+						</div>
+						</form>
 						
-					function test($string){
-						$hour = intval(substr($string,0,2));
-						if( $hour >= 1 && $hour < 8){
-							$hour += 12;
-							return (strval($hour).substr($string,2));
-						}
-						else{
-							return ($string);
-						}
-					}
-                    ?>
-                </div>
-            </div>
-        </div>
-    </section>
+						<?php
+							include('includes/dbconnect.php');
+							
+							// replace last occurence of $search string (for sql statement remove last AND)
+							function str_lreplace($search, $replace, $subject) {
+								$pos = strrpos($subject, $search);
 
-  
+								if($pos !== false) {
+									$subject = substr_replace($subject, $replace, $pos, strlen($search));
+								}
+
+								return $subject;
+							}
+							
+							$subjects = array('', 'ARCH', 'BIOL', 'BMED', 'BLDG', 'TBAN', 'CHEM', 'TCAN', 'CIVE', 'CIVT', 'COMM', 'COMP', 'TCON', 'CONM', 'TCMC', 'DSGN', 'ECON', 'ELEC', 'TEIT', 'ENGR', 'ENGL', 'FMGT', 'TFMC', 'HIST', 'HUMN', 'HUSS', 'INDS', 'INTS', 'TJEC', 'LITR', 'MGMT', 'HUSS', 'MANF', 'MATH', 'MECH', 'TCAD', 'PHIL', 'POLS', 'TPMC', 'PHYC', 'SOCL', 'SURV');
+							$reqlist="python /usr/share/httpd/schedulegenerator.py '[";
+							$sql = "SELECT a.course_CRN, b.subject, b.course, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND (";
+							$i = 0;
+							$del='';
+							if (isset($_POST['Submit'])) { // FIX THIS
+								foreach($_POST['subject'] as $key=>$subjectValue) {
+									foreach($_POST['course'] as $courseNumber) {
+										if ($key == $i) {
+										$reqlist .= $del.'("'.$subjects[$subjectValue].'",'.$courseNumber.')';
+										}
+										//echo "i: ".$i."<br/>";
+										$i++;
+										//echo "value: ".$key."<br/>";
+										$del=',';
+									}
+									$i = 0;
+								}
+								$reqlist.="]'";
+								//$sql = str_lreplace(" OR ", ");", $sql); // remove trailing OR in sql statement
+								echo 'sql: '.$reqlist;
+							}
+							$command = escapeshellcmd($reqlist);
+							//$output = eval(shell_exec($command." 2>&1"));
+							$output = shell_exec($command." 2>&1");
+							//$output = shell_exec('whoami');
+							echo "</br>output: ".$output;
+							
+							foreach(eval("return ".$output.";") as $set){
+								foreach($set as $CRN){
+									echo "</br>CRN: ".$CRN;
+								}
+								echo "</br>";
+							}
+							$conn->close();
+						?>
+					</div>
+				</div>
+			</div>
+		</section>
+	</header>
 
     <aside class="bg-dark">
         <div class="container text-center">
@@ -291,25 +214,7 @@
         </div>
     </aside>
 
-	<!--
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h4 class="section-heading">Version 1.0</h4>
-                    <hr class="primary">
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h4><a href="https://github.com/mgolov/ScheduleIt/blob/master/README.md">Help</a></h4>
-                </div>
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h4><a href="https://github.com/mgolov/ScheduleIt/issues">Report Issues</a></h4>
-                </div>
-            </div>
-        </div>
-    </section>
-	-->
-
+	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 	<script src="js/tablesorter.js"></script>
@@ -324,6 +229,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+	<script type="text/javascript" src="js/buttons.js"></script>
 	
 	<!-- Calender Stuff -->
     <script src='lib/moment.min.js'></script>
@@ -385,6 +291,33 @@
 		}
 
       </script>
+	  
+	<script>
+		$(function() {
+  
+  transition_timeout = 40;
+  
+  $('.title_items').click(function() {
+    
+    current = $(this).next().find('li');
+    
+    $(this).toggleClass('active');
+    current.toggleClass('visible');
+    
+    if ($(this).hasClass('active')) {
+      for( i = 0; i <= current.length; i++ ) {
+        $(current[i]).css('transition-delay', transition_timeout * i + 'ms');
+      }
+    }
+    else {
+      for( i = current.length, j = -1; i >= 0; i--, j++) {
+        $(current[i]).css('transition-delay', transition_timeout * j + 'ms');
+      }
+    }
+  
+  });
+});
+	</script>
 
 </body>
 
