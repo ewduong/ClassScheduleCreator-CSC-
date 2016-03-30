@@ -475,70 +475,66 @@ body {
     webkit-tap-highlight-color: #222;
 }
 
-/* for the aligning forms (wip)
-label {
-    display: inline-block;
-    float: left;
-    clear: left;
-    width: 250px;
-    text-align: right;
-}
-
-select {
-	display: inline-block;
-	float: left;
-}
-
-input, select {
-  display: inline-block;
-  float: left;
-}
-*/
-
 /* table stuff */
 @import url('http://fonts.googleapis.com/css?family=Amarante');
 /** page structure **/
+
+label {
+	color: white;
+}
+
+input {
+	margin-left: 10px;
+}
+
+#search-form {
+	color: black;
+	font-family: Amarante;
+}
+
 #wrapper {
-  display: block;
-  width: 500px;
-  background: #fff;
-  padding: 10px 17px;
-  font-family: Amarante;
-  font-size: 12px;
-  text-align: center;
+	display: block;
+	width: 500px;
+	background: #fff;
+	padding: 10px 17px;
+	font-family: Amarante;
+	font-size: 12px;
+	text-align: center;
 }
 
 #course-list {
-  margin: 0 auto;
-  font-size: 1.2em;
-  margin-bottom: 15px;
+	margin: 0 auto;
+	font-size: 1.2em;
+	margin-bottom: 15px;
 }
 
 
 #course-list thead {
-  cursor: pointer;
-  background: #c9dff0;
+	cursor: pointer;
+	background: #c9dff0;
 }
+
 #course-list thead tr th { 
-  font-weight: bold;
-  padding: 12px 30px;
-  padding-left: 42px;
+	font-weight: bold;
+	padding: 12px 30px;
+	padding-left: 42px;
 }
+
 #course-list thead tr th span { 
-  padding-right: 20px;
-  background-repeat: no-repeat;
-  background-position: 100% 100%;
+	padding-right: 20px;
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
 }
 
 #course-list thead tr th.headerSortUp, #course-list thead tr th.headerSortDown {
-  background: #acc8dd;
+	background: #acc8dd;
 }
 
 #course-list thead tr th.headerSortUp span {
-  background-image: url('http://i.imgur.com/SP99ZPJ.png');
+	background-image: url('http://i.imgur.com/SP99ZPJ.png');
 }
 #course-list thead tr th.headerSortDown span {
-  background-image: url('http://i.imgur.com/RkA9MBo.png');
+	background-image: url('http://i.imgur.com/RkA9MBo.png');
 }
 
 #course-list tbody tr { 
@@ -550,4 +546,218 @@ input, select {
 }
 #course-list tbody tr td.lalign {
   text-align: left;
+}
+
+/* create schedule page */
+#course-search-box-thing {
+  width: 200px;
+  background: #FDFCFB;
+  font-family: inherit;
+  color: #737373;
+  letter-spacing: 1px;
+  text-indent: 5%;
+  border-radius: 5px;
+  height: 44px;
+  border: none;
+}
+
+/* search box stuff */
+.sb_wrapper{
+	margin: 0 auto;
+	margin-left: 250px;
+	padding:0;
+	position: absolute;
+	width: 610px;
+}
+.sb_wrapper input[type="text"],
+ul.sb_dropdown{
+	border: 1px solid #fff;
+	background: #fafafa; 
+	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#fafafa)); 
+	background: -moz-linear-gradient(top, #f2f2f2, #fafafa);
+	font-size:24px;
+	font-family: "Myriad Pro", "Trebuchet MS", sans-serif;
+	-moz-box-shadow: 1px 1px 3px #555;
+	-webkit-box-shadow: 1px 1px 3px #555;
+	-box-shadow: 1px 1px 3px #555;
+	outline: none;
+	padding: 6px 5px 6px 20px;
+	text-shadow: 1px 1px 1px #fff;
+	width: 560px;
+	float: left;
+	margin: 3px 0px;
+}
+ul.sb_dropdown{
+	float: left;
+	list-style: none;
+	width: 610px;
+	padding: 6px 5px;
+	-moz-border-radius: 0px 0px 10px 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	color: black;
+}
+ul.sb_dropdown li{
+	font-size: 16px;
+	line-height: 32px;
+	height: 32px;
+	float: left;
+	width: 100%;
+	position: relative;
+}
+ul.sb_dropdown li input[type="checkbox"]{
+	float: left;
+	margin: 10px 4px 0 5px;
+}
+ul.sb_dropdown li.sb_filter{
+	width: 348px;
+	border: 1px solid #f9f9f9;
+	clear: both;
+	background: #ddd;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #444;
+	height: 22px;
+	line-height: 16px;
+	padding: 5px;
+	margin-left: 150px;
+	-moz-box-shadow: 0px 0px 2px #777;
+	-webkit-box-shadow: 0px 0px 3px #555 inset;
+	-box-shadow: 0px 0px 3px #555 inset;
+
+}
+span.sb_up,
+span.sb_down{
+	position: absolute;
+	top: 48px;
+	left: 0px;
+	width: 14px;
+	height: 41px;
+	background-color: #f2f2f2;
+	background-position: center center;
+	background-repeat: no-repeat;
+	z-index: 10;
+	border: 1px solid #fff;
+	-moz-box-shadow: 1px 0px 1px #ddd;
+	-webkit-box-shadow: 1px 0px 1px #ddd;
+	-box-shadow: 1px 0px 1px #ddd;
+	
+}
+span.sb_up {
+	background-image:url(../img/up.png);
+}
+span.sb_down {
+	background-image:url(../img/down.png);
+}
+input.sb_search {
+	background:#f2f2f2 url(../img/search.png) no-repeat center center;
+	height:43px;
+	width:50px;
+	float:left;
+	border:none;
+	margin:3px 0px;
+	border:1px solid #fff;
+	-moz-box-shadow:1px 1px 3px #555;
+	-webkit-box-shadow:1px 1px 3px #555;
+	-box-shadow:1px 1px 3px #555;
+	outline:none;
+	cursor:pointer;
+}
+input.sb_search:hover {
+	background-color:#fff;
+}
+
+span.reference {
+	position:fixed;
+	left:10px;
+	bottom:10px;
+	font-size:11px;
+}
+
+span.reference a {
+	color:#fff;
+	text-decoration:none;
+	text-transform: uppercase;
+	text-shadow:0 1px 0 #000;
+}
+span.reference a:hover {
+	color:#f0f0f0;
+}
+
+.box {
+	height:430px;
+	width:100%;
+	position:relative;
+	color: black;
+}
+
+.search-label {
+	color: black;
+	font-size: 15px;
+}
+
+.sb_input {
+	height: 43px;
+	margin-left: 200px;
+}
+
+.search-textbox {
+	display: none;
+}
+
+#course-crn-textbox, #title-textbox, #day-textbox, #instructor-textbox, #location-textbox {
+	font-size: 13px;
+	width: 310px;
+	height: 30px;
+	margin-left: 165px;
+	position: relative;
+	text-align: center;
+	padding: 0;
+}
+
+#subject-textbox {
+	font-size: 13px;
+	width: 90px;
+	height: 30px;
+	margin-left: 30px;
+	position: relative;
+	text-align: center;
+}
+
+#start-textbox, #end-textbox {
+	font-size: 13px;
+	width: 90px;
+	height: 30px;
+	margin-left: 270px;
+	position: relative;
+	display: block;
+}
+
+#dayBox {
+	font-size: 13px;
+	height: 200px;
+	width: 300px;
+	color: black;
+	margin-left: 195px;
+	position: relative;
+}
+
+#dayColor {
+	color: black;
+}
+
+#dayTable {
+	padding: 0;
+	margin: 0;
+}
+
+#searchHeader {
+	min-height: 700px;
+}
+
+#season_dropdown {
+	color: black;
 }
