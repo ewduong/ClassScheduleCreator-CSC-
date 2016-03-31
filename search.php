@@ -282,7 +282,7 @@
 				}
 				echo "</tbody></table></div></section>";
 			} else {
-				echo "<br/>Nothing from the database matched your keywords! Sorry =/";
+				echo "<br/><center><font color=\"red\">Nothing from the database matched your keywords! Sorry =/</font></center><br/>";
 			}
 		}															
 	$conn->close();
