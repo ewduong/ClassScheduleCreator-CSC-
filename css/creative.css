@@ -240,7 +240,7 @@ header .header-content .header-content-inner p {
 }
 
 .section-heading {
-    margin-top: 0;
+    margin-top: 5px;
 }
 
 .service-box {
@@ -479,73 +479,116 @@ body {
 @import url('http://fonts.googleapis.com/css?family=Amarante');
 /** page structure **/
 
-label {
-	color: white;
+/* Component styles */
+@font-face {
+	font-family: 'Blokk';
+	src: url('../fonts/blokk/BLOKKRegular.eot');
+	src: url('../fonts/blokk/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/blokk/BLOKKRegular.woff') format('woff'),
+		 url('../fonts/blokk/BLOKKRegular.svg#BLOKKRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+.component {
+	line-height: 1.5em;
+	margin: 0 auto;
+	padding: 2em 0 3em;
+	width: 90%;
+	max-width: 100%;
+	overflow: hidden;
+}
+.component .filler {
+	font-family: "Blokk", Arial, sans-serif;
+	color: #d3d3d3;
+}
+table {
+    border-collapse: collapse;
+    margin-bottom: 3em;
+    width: 100%;
+    background: #fff;
+}
+td, th {
+    padding: 0.75em 1.5em;
+    text-align: left;
+}
+	td.err {
+		background-color: #e992b9;
+		color: #fff;
+		font-size: 0.75em;
+		text-align: center;
+		line-height: 1;
+	}
+th {
+    background-color: #31bc86;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+}
+tbody th {
+	background-color: #2ea879;
+}
+tbody tr:nth-child(2n-1) {
+    background-color: #f5f5f5;
+    transition: all .125s ease-in-out;
+}
+tbody tr:hover {
+    background-color: rgba(129,208,177,.3);
 }
 
-input {
-	margin-left: 10px;
+/* For appearance */
+.sticky-wrap {
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: relative;
+	margin: 3em 0;
+	width: 100%;
+}
+.sticky-wrap .sticky-thead,
+.sticky-wrap .sticky-col,
+.sticky-wrap .sticky-intersect {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: all .125s ease-in-out;
+	z-index: 50;
+	width: auto; /* Prevent table from stretching to full size */
+}
+	.sticky-wrap .sticky-thead {
+		box-shadow: 0 0.25em 0.1em -0.1em rgba(0,0,0,.125);
+		z-index: 100;
+		width: 100%; /* Force stretch */
+	}
+	.sticky-wrap .sticky-intersect {
+		opacity: 1;
+		z-index: 150;
+
+	}
+		.sticky-wrap .sticky-intersect th {
+			background-color: #666;
+			color: #eee;
+		}
+.sticky-wrap td,
+.sticky-wrap th {
+	box-sizing: border-box;
 }
 
-#search-form {
-	color: black;
-	font-family: Amarante;
+/* Not needed for sticky header/column functionality */
+td.user-name {
+	text-transform: capitalize;
+}
+.sticky-wrap.overflow-y {
+	overflow-y: auto;
+	max-height: 80vh;
 }
 
-#wrapper {
-	display: block;
-	width: 500px;
-	background: #fff;
-	padding: 10px 17px;
-	font-family: Amarante;
-	font-size: 12px;
+#schedule-section {
+	padding: 0;
 	text-align: center;
 }
 
-#course-list {
-	margin: 0 auto;
-	font-size: 1.2em;
-	margin-bottom: 15px;
-}
-
-
-#course-list thead {
-	cursor: pointer;
-	background: #c9dff0;
-}
-
-#course-list thead tr th { 
-	font-weight: bold;
-	padding: 12px 30px;
-	padding-left: 42px;
-}
-
-#course-list thead tr th span { 
-	padding-right: 20px;
-	background-repeat: no-repeat;
-	background-position: 100% 100%;
-}
-
-#course-list thead tr th.headerSortUp, #course-list thead tr th.headerSortDown {
-	background: #acc8dd;
-}
-
-#course-list thead tr th.headerSortUp span {
-	background-image: url('http://i.imgur.com/SP99ZPJ.png');
-}
-#course-list thead tr th.headerSortDown span {
-	background-image: url('http://i.imgur.com/RkA9MBo.png');
-}
-
-#course-list tbody tr { 
-  color: #555;
-}
-#course-list tbody tr td {
-  text-align: center;
-  padding: 15px 10px;
-}
-#course-list tbody tr td.lalign {
-  text-align: left;
+#schedule-div {
+	display: inline-block;
 }
 
 /* create schedule page */

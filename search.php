@@ -25,10 +25,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 	
-	<!-- Calender Stuff -->
-	<link rel='stylesheet' href='../ScheduleIT/lib/cupertino/jquery-ui.min.css' />
-    <link href='fullcalendar.css' rel='stylesheet' />
-    <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -199,9 +195,9 @@
 			return $subject;
 		}
 
-		$fields = array('course_CRN', 'subject', 'title', 'day', 'start', 'end', 'instructor', 'location');
+		$fields = array('course_CRN', 'subject', 'course', 'section', 'credits', 'title', 'day', 'start', 'end', 'instructor', 'location');
 		$course_CRN = $subject = $title = $day = $start = $end = $instructor = $location = false;
-		$sql = "SELECT a.course_CRN, b.subject, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND ";
+		$sql = "SELECT a.course_CRN, b.subject, b.course, b.section, b.credits, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND ";
 		$wfieldname = "";
 
 		if (isset($_POST['Submit'])) {
@@ -246,22 +242,22 @@
 			
 			$result = $conn->query($sql);
 			if ($result->num_rows > 0) {
-				echo "<section id=\"about\">
-						<div class=\"container\">
-							<div class=\"row\">
-								<div class=\"col-lg-12 text-center\">";
-				echo "<p><h2 class=\"section-heading\">".$_POST['season']."</h2></p>";
-				echo "<div id=\"wrapper\"><table id=\"course-list\" cellspacing=\"0\" cellpadding=\"0\">
+				echo "<section id=\"schedule-section\">";
+				echo "<h2 class=\"section-heading\">".$_POST['season']."</h2>";
+				echo "<div class=\"component\"><table class=\"overflow-y\" id=\"course-search\">
 					<thead>
 						<tr>
 							<th><span>Course CRN</span></th>
-							<th><span>Subject</span></th>
-							<th><span>Title</span></th>
-							<th><span>Day</span></th>
-							<th><span>Start</span></th>
-							<th><span>End</span></th>
-							<th><span>Instructor</span></th>
-							<th><span>Location</span></th>
+							<th>Subject</th>
+							<th>Course #</th>
+							<th>Section</th>
+							<th>Credits</th>
+							<th>Title</th>
+							<th>Day</th>
+							<th>Start</th>
+							<th>End</th>
+							<th>Instructor</th>
+							<th>Location</th>
 						</tr>
 					</thead>";
 					
@@ -271,6 +267,9 @@
 					echo "<tr>
 							<td>".$row["course_CRN"]."</td>
 							<td>".$row["subject"]."</td>
+							<td>".$row["course"]."</td>
+							<td>".$row["section"]."</td>
+							<td>".$row["credits"]."</td>
 							<td>".$row["title"]."</td>
 							<td>".$row["day"]."</td>
 							<td>".$row["start"]."</td>
@@ -279,7 +278,7 @@
 							<td>".$row["location"]."</td>
 						</tr>";
 				}
-				echo "</tbody></table></div></div></div></section>";
+				echo "</tbody></table></div></section>";
 			} else {
 				echo "<br/>Nothing from the database matched your keywords! Sorry =/";
 			}
@@ -310,9 +309,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
-	
-	<!-- Calender Stuff -->
-    <script src='lib/moment.min.js'></script>
-    <script src='fullcalendar.min.js'></script>
+	<script src="js/jquery.stickyheader.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 </body>
 </html>

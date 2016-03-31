@@ -47,10 +47,6 @@
 
 })(jQuery); // End of use strict
 
-$(function(){
-	$('#course-list').tablesorter(); 
-});
-
 // add fields js
 $('.multi-field-wrapper').each(function() {
     var $wrapper = $('.multi-fields', this);
@@ -169,4 +165,3 @@ $(function() {
 		}
 	});
 });
-			
