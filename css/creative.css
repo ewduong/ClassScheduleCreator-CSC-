@@ -492,7 +492,6 @@ body {
 .component {
 	line-height: 1.5em;
 	margin: 0 auto;
-	padding: 2em 0 3em;
 	width: 90%;
 	max-width: 100%;
 	overflow: hidden;
@@ -509,7 +508,7 @@ table {
 }
 td, th {
     padding: 0.75em 1.5em;
-    text-align: left;
+    text-align: center;
 }
 	td.err {
 		background-color: #e992b9;

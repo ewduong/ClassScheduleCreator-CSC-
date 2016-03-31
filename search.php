@@ -247,7 +247,7 @@
 				echo "<div class=\"component\"><table class=\"overflow-y\" id=\"course-search\">
 					<thead>
 						<tr>
-							<th><span>Course CRN</span></th>
+							<th>Course CRN</th>
 							<th>Subject</th>
 							<th>Course #</th>
 							<th>Section</th>
