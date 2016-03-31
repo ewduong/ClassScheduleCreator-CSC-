@@ -76,6 +76,7 @@ $(function() {
 	* on focus and on click display the dropdown, 
 	* and change the arrow image
 	*/
+	$('#dayBox').hide();
 	$('#start-textbox').hide();
 	$('#end-textbox').hide();
 

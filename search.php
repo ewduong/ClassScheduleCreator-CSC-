@@ -78,105 +78,107 @@
 
 	<header id="searchHeader">
 		<section id="courses">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<h2 class="section-heading">Search for Courses</h2>
-						<hr class="primary">
-						<form method="post" id="ui_element" class="sb_wrapper">
-							<p>
-								<select id="season_dropdown" name="season">
-									<option>Spring 2016</option>
-									<option>Fall 2016</option>
-								</select>
-							</p>
-							<p id="search-textbox">
-								<span class="sb_down"></span>
-								<input class="sb_input" type="text"/>
-								<input class="sb_search" type="submit" name="Submit" value=""/>
-							</p>
-							<ul class="sb_dropdown">
-								<li class="sb_filter">Filter your search</li>
-								<li><input type="checkbox" id="course-crn-checkbox"/><label class="search-label" for="course-crn"><strong>Course CRN</strong></label></li>
-								<input type="text" id="course-crn-textbox" class="search-textbox" name="course_CRN" />
-								<li><input type="checkbox" id="subject-checkbox"/><label class="search-label" for="subject">Subject</label></li>
-								<select id="subject-textbox" class="search-textbox" name="subject">
-									<option></option>
-									<option>ARCH</option>
-									<option>BIOL</option>
-									<option>BMED</option>
-									<option>BLDG</option>
-									<option>TBAN</option>
-									<option>CHEM</option>
-									<option>TCAN</option>
-									<option>CIVE</option>
-									<option>CIVT</option>
-									<option>COMM</option>
-									<option>COMP</option>
-									<option>TCON</option>
-									<option>CONM</option>
-									<option>TCMC</option>
-									<option>DSGN</option>
-									<option>ECON</option>
-									<option>ELEC</option>
-									<option>TEIT</option>
-									<option>ENGR</option>
-									<option>ENGL</option>
-									<option>FMGT</option>
-									<option>TFMC</option>
-									<option>HIST</option>
-									<option>HUMN</option>
-									<option>HUSS</option>
-									<option>INDS</option>
-									<option>INTS</option>
-									<option>TJEC</option>
-									<option>LITR</option>
-									<option>MGMT</option>
-									<option>HUSS</option>
-									<option>MANF</option>
-									<option>MATH</option>
-									<option>MECH</option>
-									<option>TCAD</option>
-									<option>PHIL</option>
-									<option>POLS</option>
-									<option>TPMC</option>
-									<option>PHYC</option>
-									<option>SOCL</option>
-									<option>SURV</option>
-								</select>
-								<li><input type="checkbox" id="title-checkbox"/><label class="search-label" for="title">Title</label></li>
-								<input type="text" id="title-textbox" class="search-textbox" name="title" />
-								<li><input type="checkbox" id="day-checkbox"/><label class="search-label" for="day">Day</label></li>
-								<div id="dayBox" class="search-textbox">
-									<table id="dayTable">
-										<thead>
-											<tr>
-												<td><input type="checkbox" name="day[]" value="M"><label id="dayColor" for="day">Monday</label></td>
-												<td><input type="checkbox" name="day[]" value="T"><label id="dayColor" for="day">Tuesday</label></td>
-												<td><input type="checkbox" name="day[]" value="W"><label id="dayColor" for="day">Wednesday</label></td>
-											</tr>
-										<thead>
-										<tbody>
-											<tr>
-												<td><input type="checkbox" name="day[]" value="R"><label id="dayColor" for="day">Thursday</label></td>
-												<td><input type="checkbox" name="day[]" value="F"><label id="dayColor" for="day">Friday</label></td>
-												<td><input type="checkbox" name ="day[]" value="S"><label id="dayColor" for="day">Saturday</label></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<li><input type="checkbox" id="start-checkbox"/><label class="search-label" for="start">Start Time</label></li>
-								<input class="search-textbox" id="start-textbox" type="time" name="start">
-								<li><input type="checkbox" id="end-checkbox"/><label class="search-label" for="end">End Time</label></li>
-								<input class="search-textbox" id="end-textbox" type="time" name="end">
-								<li><input type="checkbox" id="instructor-checkbox"/><label class="search-label" for="instructor">Professor</label></li>
-								<input type="text" id="instructor-textbox" class="search-textbox" name="instructor" />
-								<li><input type="checkbox" id="location-checkbox"/><label class="search-label" for="location">Location</label></li>
-								<input type="text" id="location-textbox" class="search-textbox" name="location" />
-							</ul>
-						</form>	
+			<div id="search-section">
+				<h2 class="section-heading">Search for Courses</h2>
+				<hr class="primary">
+				<form method="post" id="ui_element" class="sb_wrapper">
+					<p>
+						<select id="season-dropdown" name="season">
+							<option>Spring 2016</option>
+							<option>Fall 2016</option>
+						</select>
+					</p>
+					
+					<div class="search-block">
+							<span class="sb_down"></span>
+							<input class="sb_input" type="text" disabled/>
+							<input class="sb_search" type="submit" name="Submit" value=""/>
 					</div>
-				</div>
+					<p></p>
+					<div class="search-block">
+						<ul class="sb_dropdown">
+							<li class="sb_filter">Filter your search</li>
+							<li><input type="checkbox" id="course-crn-checkbox"/><label class="search-label" for="course-crn"><strong>Course CRN</strong></label></li>
+							<input type="text" id="course-crn-textbox" class="search-textbox" name="course_CRN" />
+							<div id="subject-div">
+							<li><input type="checkbox" id="subject-checkbox"/><label class="search-label" for="subject">Subject</label></li>
+							<select id="subject-textbox" class="search-textbox" name="subject">
+								<option></option>
+								<option>ARCH</option>
+								<option>BIOL</option>
+								<option>BMED</option>
+								<option>BLDG</option>
+								<option>TBAN</option>
+								<option>CHEM</option>
+								<option>TCAN</option>
+								<option>CIVE</option>
+								<option>CIVT</option>
+								<option>COMM</option>
+								<option>COMP</option>
+								<option>TCON</option>
+								<option>CONM</option>
+								<option>TCMC</option>
+								<option>DSGN</option>
+								<option>ECON</option>
+								<option>ELEC</option>
+								<option>TEIT</option>
+								<option>ENGR</option>
+								<option>ENGL</option>
+								<option>FMGT</option>
+								<option>TFMC</option>
+								<option>HIST</option>
+								<option>HUMN</option>
+								<option>HUSS</option>
+								<option>INDS</option>
+								<option>INTS</option>
+								<option>TJEC</option>
+								<option>LITR</option>
+								<option>MGMT</option>
+								<option>HUSS</option>
+								<option>MANF</option>
+								<option>MATH</option>
+								<option>MECH</option>
+								<option>TCAD</option>
+								<option>PHIL</option>
+								<option>POLS</option>
+								<option>TPMC</option>
+								<option>PHYC</option>
+								<option>SOCL</option>
+								<option>SURV</option>
+							</select>
+							</div>
+							<li><input type="checkbox" id="title-checkbox"/><label class="search-label" for="title">Title</label></li>
+							<input type="text" id="title-textbox" class="search-textbox" name="title" />
+							<li><input type="checkbox" id="day-checkbox"/><label class="search-label" for="day">Day</label></li>
+							<div id="dayBox" class="search-textbox">
+								<table id="dayTable">
+									<thead>
+										<tr>
+											<td><input type="checkbox" name="day[]" value="M"><label id="dayColor" for="day">Monday</label></td>
+											<td><input type="checkbox" name="day[]" value="T"><label id="dayColor" for="day">Tuesday</label></td>
+											<td><input type="checkbox" name="day[]" value="W"><label id="dayColor" for="day">Wednesday</label></td>
+										</tr>
+									<thead>
+									<tbody>
+										<tr>
+											<td><input type="checkbox" name="day[]" value="R"><label id="dayColor" for="day">Thursday</label></td>
+											<td><input type="checkbox" name="day[]" value="F"><label id="dayColor" for="day">Friday</label></td>
+											<td><input type="checkbox" name ="day[]" value="S"><label id="dayColor" for="day">Saturday</label></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<li><input type="checkbox" id="start-checkbox"/><label class="search-label" for="start">Start Time</label></li>
+							<input class="search-textbox" id="start-textbox" type="time" name="start">
+							<li><input type="checkbox" id="end-checkbox"/><label class="search-label" for="end">End Time</label></li>
+							<input class="search-textbox" id="end-textbox" type="time" name="end">
+							<li><input type="checkbox" id="instructor-checkbox"/><label class="search-label" for="instructor">Professor</label></li>
+							<input type="text" id="instructor-textbox" class="search-textbox" name="instructor" />
+							<li><input type="checkbox" id="location-checkbox"/><label class="search-label" for="location">Location</label></li>
+							<input type="text" id="location-textbox" class="search-textbox" name="location" />
+						</ul>
+					</div>
+				</form>	
 			</div>
 		</section>
 	</header>
