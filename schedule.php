@@ -91,6 +91,12 @@
 						<h2 class="section-heading">Enter Course Requirement</h2>
 						<hr class="primary">
 						<form method ="post" id="search-form">
+						<p>
+							<select id="season-dropdown" name="season">
+								<option>Spring 2016</option>
+								<option>Fall 2016</option>
+							</select>
+						</p>
 						<div class="multi-field-wrapper">
 							<div class="multi-fields">
 								<div class="multi-field">
@@ -135,7 +141,7 @@
 											<option value="36">PHIL</option>
 											<option value="37">POLS</option>
 											<option value="38">TPMC</option>
-											<option value="39">PHYC</option>
+											<option value="39">PHYS</option>
 											<option value="40">SOCL</option>
 											<option value="41">SURV</option>
 										</select>
@@ -150,40 +156,23 @@
 						</form>
 						
 						<?php
-							include('includes/dbconnect.php');
-							
-							// replace last occurence of $search string (for sql statement remove last AND)
-							function str_lreplace($search, $replace, $subject) {
-								$pos = strrpos($subject, $search);
-
-								if($pos !== false) {
-									$subject = substr_replace($subject, $replace, $pos, strlen($search));
-								}
-
-								return $subject;
-							}
-							
-							$subjects = array('', 'ARCH', 'BIOL', 'BMED', 'BLDG', 'TBAN', 'CHEM', 'TCAN', 'CIVE', 'CIVT', 'COMM', 'COMP', 'TCON', 'CONM', 'TCMC', 'DSGN', 'ECON', 'ELEC', 'TEIT', 'ENGR', 'ENGL', 'FMGT', 'TFMC', 'HIST', 'HUMN', 'HUSS', 'INDS', 'INTS', 'TJEC', 'LITR', 'MGMT', 'HUSS', 'MANF', 'MATH', 'MECH', 'TCAD', 'PHIL', 'POLS', 'TPMC', 'PHYC', 'SOCL', 'SURV');
+							$subjects = array('', 'ARCH', 'BIOL', 'BMED', 'BLDG', 'TBAN', 'CHEM', 'TCAN', 'CIVE', 'CIVT', 'COMM', 'COMP', 'TCON', 'CONM', 'TCMC', 'DSGN', 'ECON', 'ELEC', 'TEIT', 'ENGR', 'ENGL', 'FMGT', 'TFMC', 'HIST', 'HUMN', 'HUSS', 'INDS', 'INTS', 'TJEC', 'LITR', 'MGMT', 'HUSS', 'MANF', 'MATH', 'MECH', 'TCAD', 'PHIL', 'POLS', 'TPMC', 'PHYS', 'SOCL', 'SURV');
 							$reqlist="python /usr/share/httpd/schedulegenerator.py '[";
-							$sql = "SELECT a.course_CRN, b.subject, b.course, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND (";
 							$i = 0;
 							$del='';
-							if (isset($_POST['Submit'])) { // FIX THIS
+							if (isset($_POST['Submit'])) {
 								foreach($_POST['subject'] as $key=>$subjectValue) {
 									foreach($_POST['course'] as $courseNumber) {
 										if ($key == $i) {
-										$reqlist .= $del.'("'.$subjects[$subjectValue].'",'.$courseNumber.')';
+											$reqlist .= $del.'("'.$subjects[$subjectValue].'",'.$courseNumber.')';
 										}
-										//echo "i: ".$i."<br/>";
 										$i++;
-										//echo "value: ".$key."<br/>";
 										$del=',';
 									}
 									$i = 0;
 								}
 								$reqlist.="]'";
-								//$sql = str_lreplace(" OR ", ");", $sql); // remove trailing OR in sql statement
-								echo 'sql: '.$reqlist;
+								echo 'reqlist: '.$reqlist;
 							}
 							$command = escapeshellcmd($reqlist);
 							//$output = eval(shell_exec($command." 2>&1"));
@@ -191,13 +180,12 @@
 							//$output = shell_exec('whoami');
 							echo "</br>output: ".$output;
 							
-							foreach(eval("return ".$output.";") as $set){
-								foreach($set as $CRN){
+							foreach(eval("return ".$output.";") as $set) {
+								foreach($set as $CRN) {
 									echo "</br>CRN: ".$CRN;
 								}
 								echo "</br>";
 							}
-							$conn->close();
 						?>
 					</div>
 				</div>
@@ -217,7 +205,6 @@
 	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-	<script src="js/tablesorter.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -236,89 +223,65 @@
     <script src='fullcalendar.min.js'></script>
 	
 	<script>
-      var calendar;
-      $(document).ready(function() {
-	calendar = $('#calendar');
-       	calendar.fullCalendar({
-          theme: true,
-          header: false,
-          height: 525,
-          columnFormat: 'ddd',
-          defaultView: 'agendaWeek',
-          defaultDate: '2016-02-14',
-          minTime: '08:00:00',
-          maxTime: '20:00:00',
-          allDaySlot: false,
-          editable: false,
-          eventLimit: true,
-          eventColor: '#378006'
-        });
-
+		var calendar;
+		
+		$(document).ready(function() {
+		calendar = $('#calendar');
+			calendar.fullCalendar({
+			theme: true,
+			header: false,
+			height: 525,
+			columnFormat: 'ddd',
+			defaultView: 'agendaWeek',
+			defaultDate: '2016-02-14',
+			minTime: '08:00:00',
+			maxTime: '20:00:00',
+			allDaySlot: false,
+			editable: false,
+			eventLimit: true,
+			eventColor: '#378006'
+		});
        });
-       var myEvent = {
-          id: "Event1",
-          title:"my new event",
-          start: '2016-02-14T18:00:00+00:00',
-          end: '2016-02-14T19:0:00+00:00',
-          backgroundColor: "red"
+	   
+		var myEvent = {
+			id: "Event1",
+			title:"my new event",
+			start: '2016-02-14T18:00:00+00:00',
+			end: '2016-02-14T19:0:00+00:00',
+			backgroundColor: "red"
         }
+		
         var myEvent2 = {
-           id: "Event2",
-           title:"my new event",
-           start: '2016-02-15T13:00:00+00:00',
-           end: '2016-02-15T14:0:00+00:00'
+			id: "Event2",
+			title:"my new event",
+			start: '2016-02-15T13:00:00+00:00',
+			end: '2016-02-15T14:0:00+00:00'
         }
 
         function addEvent(event) {
-          calendar.fullCalendar('renderEvent', event);
+			calendar.fullCalendar('renderEvent', event);
         }
+		
         function addEvents(events){
-          for (i = 0; i < events.length; i++) {
-            addEvent(events[i]);
-          }
+			for (i = 0; i < events.length; i++) {
+				addEvent(events[i]);
+			}
         }
+		
         function removeEvent(event){
-          calendar.fullCalendar('removeEvents', event.id);
+			calendar.fullCalendar('removeEvents', event.id);
         }
+		
         function removeEvents(events){
-          for (i = 0; i < events.length; i++) {
-            removeEvent(events[i].id);
-          }
+			for (i = 0; i < events.length; i++) {
+				removeEvent(events[i].id);
+			}
         }
 	
 		function printPage(){
-		  window.print();
+			window.print();
 		}
-
       </script>
-	  
-	<script>
-		$(function() {
-  
-  transition_timeout = 40;
-  
-  $('.title_items').click(function() {
-    
-    current = $(this).next().find('li');
-    
-    $(this).toggleClass('active');
-    current.toggleClass('visible');
-    
-    if ($(this).hasClass('active')) {
-      for( i = 0; i <= current.length; i++ ) {
-        $(current[i]).css('transition-delay', transition_timeout * i + 'ms');
-      }
-    }
-    else {
-      for( i = current.length, j = -1; i >= 0; i--, j++) {
-        $(current[i]).css('transition-delay', transition_timeout * j + 'ms');
-      }
-    }
-  
-  });
-});
-	</script>
-
 </body>
 
 </html>
