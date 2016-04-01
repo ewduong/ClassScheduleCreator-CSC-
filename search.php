@@ -152,20 +152,16 @@
 							<li><input type="checkbox" id="day-checkbox"/><label class="search-label" for="day">Day</label></li>
 							<div id="dayBox" class="search-textbox">
 								<table id="dayTable">
-									<thead>
-										<tr>
-											<td><input type="checkbox" name="day[]" value="M"><label id="dayColor" for="day">Monday</label></td>
-											<td><input type="checkbox" name="day[]" value="T"><label id="dayColor" for="day">Tuesday</label></td>
-											<td><input type="checkbox" name="day[]" value="W"><label id="dayColor" for="day">Wednesday</label></td>
-										</tr>
-									<thead>
-									<tbody>
-										<tr>
-											<td><input type="checkbox" name="day[]" value="R"><label id="dayColor" for="day">Thursday</label></td>
-											<td><input type="checkbox" name="day[]" value="F"><label id="dayColor" for="day">Friday</label></td>
-											<td><input type="checkbox" name ="day[]" value="S"><label id="dayColor" for="day">Saturday</label></td>
-										</tr>
-									</tbody>
+									<tr>
+										<td><input type="checkbox" name="day[]" value="M"><label id="dayColor" for="day">Monday</label></td>
+										<td><input type="checkbox" name="day[]" value="T"><label id="dayColor" for="day">Tuesday</label></td>
+										<td><input type="checkbox" name="day[]" value="W"><label id="dayColor" for="day">Wednesday</label></td>
+									</tr>
+									<tr>
+										<td><input type="checkbox" name="day[]" value="R"><label id="dayColor" for="day">Thursday</label></td>
+										<td><input type="checkbox" name="day[]" value="F"><label id="dayColor" for="day">Friday</label></td>
+										<td><input type="checkbox" name ="day[]" value="S"><label id="dayColor" for="day">Saturday</label></td>
+									</tr>
 								</table>
 							</div>
 							<li><input type="checkbox" id="start-checkbox"/><label class="search-label" for="start">Start Time</label></li>
