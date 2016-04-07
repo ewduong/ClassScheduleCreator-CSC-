@@ -1,0 +1,67 @@
+<footer id="contact" class="invisible">
+    <div class="container">
+        <div class="row">
+        <div class="pull-left">                
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="page-scroll" href="index.php"><i class="fa fa-home fa-2"></i>Home</a>
+            </li>
+              <li>
+<?PHP
+if ($page == 'search') {
+?>
+            <a style="cursor:pointer"><i class="fa fa-search fa-2"></i>Find Course</a>
+<?PHP
+}else{
+?>
+            <a id="open-search" style="cursor:pointer" class="open"><i class="fa fa-search fa-2"></i>Find Course</a>
+<?PHP
+}
+?>
+            </li>
+            <li>
+                <a class="page-scroll" href="schedule.html"><i class="fa fa-calendar fa-2"></i>Make Schedule</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="about_us.php"><i class="fa fa-group fa-2"></i>About Us</a>
+            </li>
+            <li>
+                <a id="open-form" style="cursor:pointer" class="open"><i class="fa fa-envelope-o fa-2"></i>Contact Us</a>
+            </li>
+        </ul>
+</div>
+	        <div class="pull-right">
+    	        <a href="#" class="btn btn-default btn-l btn-danger wow tada">Top</a>
+        	</div>
+        </div>
+    </div>
+</footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+	<script src="js/tablesorter.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+    <script src="js/index.js"></script>
+
+<?php
+
+include_once ('includes/contact-form.html');
+if ($_POST ['action'] == 'contact-form')
+{
+	include_once ('includes/email.formdata.class.php');
+	$sendmail = new Email_Formdata($_POST, 'john@telesh.com','','scheduleit.net',$_POST['email'], 'New E-mail via Contact Form');
+	$form_success = TRUE;
+	include_once ('includes/thank-you.html');
+}
+
+?>

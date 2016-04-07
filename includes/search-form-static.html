@@ -1,0 +1,85 @@
+<form method="POST" id="search-form-static" action="search.php" class="search-form-static" autocomplete="off">
+<input name="action" value="search" hidden="hidden" />
+	<div class="wrapper">
+<!--    <span class="close"><i class="fa fa-times-circle"></i></span>-->
+    <h3 class="search-form-header">Search For Courses</h3>
+    <p><label>Season:</label>
+        <span class="custom-dropdown custom-dropdown--canary">
+            <select name="season" class="custom-dropdown__select custom-dropdown__select--dk-gray">
+                <option value="spring_2016">Spring 2016&nbsp; </option>
+                <option value="fall_2016" selected="selected">Fall 2016&nbsp; </option>
+            </select>
+        </span>
+     </p>
+        <p><label><i class="fa fa-commenting-o fa-2"></i>Course CRN</label>
+        <input type="text" name="course_CRN" class="text" value="<?=$_POST['course_CRN']?>" /></p>
+        <p><label><i class="fa fa-commenting-o fa-2"></i>
+        Subject</label>
+        <span class="custom-dropdown custom-dropdown--canary">
+        <select  name="subject"  class="custom-dropdown__select custom-dropdown__select--dk-gray">
+            <option value=""></option>
+            <option>ARCH</option>
+            <option>BIOL</option>
+            <option>BMED</option>
+            <option>BLDG</option>
+            <option>TBAN</option>
+            <option>CHEM</option>
+            <option>TCAN</option>
+            <option>CIVE</option>
+            <option>CIVT</option>
+            <option>COMM</option>
+            <option>COMP</option>
+            <option>TCON</option>
+            <option>CONM</option>
+            <option>TCMC</option>
+            <option>DSGN</option>
+            <option>ECON</option>
+            <option>ELEC</option>
+            <option>TEIT</option>
+            <option>ENGR</option>
+            <option>ENGL</option>
+            <option>FMGT</option>
+            <option>TFMC</option>
+            <option>HIST</option>
+            <option>HUMN</option>
+            <option>HUSS</option>
+            <option>INDS</option>
+            <option>INTS</option>
+            <option>TJEC</option>
+            <option>LITR</option>
+            <option>MGMT</option>
+            <option>HUSS</option>
+            <option>MANF</option>
+            <option>MATH</option>
+            <option>MECH</option>
+            <option>TCAD</option>
+            <option>PHIL</option>
+            <option>POLS</option>
+            <option>TPMC</option>
+            <option>PHYC</option>
+            <option>SOCL</option>
+            <option>SURV</option>
+        </select>
+		</p>
+        <p><label><i class="fa fa-commenting-o fa-2"></i>Class Title</label>
+        <input type="text" name="title"  class="text"  value="<?=$_POST['course_CRN']?>" /></p>
+        <p><label class="dow"><i class="fa fa-commenting-o fa-2"></i>Day</label>
+        <input type="checkbox" name="day[]" value="M">Mon&nbsp;&nbsp;
+        <input type="checkbox" name="day[]" value="T">Tue&nbsp;&nbsp;
+        <input type="checkbox" name="day[]" value="W">Wed&nbsp;&nbsp;
+        <input type="checkbox" name="day[]" value="R">Thu&nbsp;&nbsp;
+        <input type="checkbox" name="day[]" value="F">Fri&nbsp;&nbsp;
+        <input type="checkbox" name ="day[]" value="S">Sat
+        </p>
+        <p><label for="start"><i class="fa fa-clock fa-2"></i>Start Time</label>
+        <input type="time" name="start"  value="<?=$_POST['start']?>" ></p>
+        <p><label for="end"><i class="fa fa-clock fa-2"></i>End Time</label>
+        <input type="time" name="end"  value="<?=$_POST['end']?>" ></p>
+        <p><label>Professor:</label>
+        <input type="text"  name="instructor" class="text" value="<?=$_POST['instructor']?>" /></p>
+        <p><label>Location:</label>
+        <input type="text"  name="location" class="text"  value="<?=$_POST['location']?>" /></p>
+        <p style="text-align:center;"><input type="submit" class="btn btn-default btn-lg" name="Submit" value="Search"/></p>
+	</div>
+</form>
+<a id="search-overlay" class="overlay"></a>

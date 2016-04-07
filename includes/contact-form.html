@@ -1,0 +1,14 @@
+<form id="contact-form" class="contact" action="contact-form" method="POST" autocomplete="off">
+  <div class="wrapper">
+    <p class="close"><i class="fa fa-times-circle"></i></p>
+    <p><span class="input-group-addon"> <i class="fa fa-user fa-2"></i> 
+    <input name="Full Name" type="text" placeholder="Name" min="2" maxlength="40" required oninvalid="setCustomValidity('Enter Your Name')"
+ onchange="try{setCustomValidity('')}catch(e){}" ></span></p>
+    <p><span class="input-group-addon"><i class="fa fa-envelope-o fa-2"></i> <input name="E-mail" type="email" placeholder="E-mail" maxlength="56" required oninvalid="setCustomValidity('Enter A Valid Email Address')"
+ onchange="try{setCustomValidity('')}catch(e){}" /></p>
+    <p><span class="input-group-addon"><i class="fa fa-pencil fa-2"></i> <input name="Subject" type="text" placeholder="Subject" maxlength="32" /></p>
+    <p><span class="input-group-addon"><textarea name="Message" placeholder="Message" maxlength="1000"></textarea></p>
+    <p style="text-align:center"><input id="submit" type="submit" value="Contact Us" /></p>
+  </div>
+</form>
+<a id="contact-overlay" class="overlay"></a>

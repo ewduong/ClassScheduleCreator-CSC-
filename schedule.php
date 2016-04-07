@@ -17,7 +17,8 @@
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="css/web-fonts.css" type="text/css">
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="css/animate.min.css" type="text/css">
@@ -27,7 +28,6 @@
 	<link rel="stylesheet" href="css/buttons.css" type="text/css">
 	
 	<!-- Calender Stuff -->
-	<link rel='stylesheet' href='../lib/cupertino/jquery-ui.min.css' />
     <link href='fullcalendar.css' rel='stylesheet' />
     <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
    
@@ -41,47 +41,7 @@
 </head>
 
 <body id="page-top">
-
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                 <img src="img/logo.png" alt= "ScheduleIt" style="width:50px;height:50px;" align="left">
-                 <a class="navbar-brand page-scroll" href="index.php">ScheduleIt</a>
-
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="page-scroll" href="index.php">Home</a>
-                    </li>
-					  <li>
-                        <a class="page-scroll" href="search.php">Search Courses</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="schedule.php">Create Schedule</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="about.html">About Us</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-			
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+<?php include('includes/nav.html');?>
 
 	<header>
 		<section id="courses">
@@ -90,11 +50,11 @@
 					<div class="col-lg-12 text-center">
 						<h2 class="section-heading">Enter Course Requirement</h2>
 						<hr class="primary">
-						<form method ="post" id="search-form">
+						<form method ="post" id="schedule-form-static" class="schedule-form-static">
 						<p>
 							<select id="season-dropdown" name="season">
-								<option>Spring 2016</option>
-								<option>Fall 2016</option>
+								<option value="spring_2016">Spring 2016</option>
+								<option value="fall_2016">Fall 2016</option>
 							</select>
 						</p>
 						<div class="multi-field-wrapper">
@@ -155,54 +115,117 @@
 						</div>
 						</form>
 						
-						<?php
-							$subjects = array('', 'ARCH', 'BIOL', 'BMED', 'BLDG', 'TBAN', 'CHEM', 'TCAN', 'CIVE', 'CIVT', 'COMM', 'COMP', 'TCON', 'CONM', 'TCMC', 'DSGN', 'ECON', 'ELEC', 'TEIT', 'ENGR', 'ENGL', 'FMGT', 'TFMC', 'HIST', 'HUMN', 'HUSS', 'INDS', 'INTS', 'TJEC', 'LITR', 'MGMT', 'HUSS', 'MANF', 'MATH', 'MECH', 'TCAD', 'PHIL', 'POLS', 'TPMC', 'PHYS', 'SOCL', 'SURV');
-							$reqlist="python /usr/share/httpd/schedulegenerator.py '[";
-							$i = 0;
-							$del='';
-							if (isset($_POST['Submit'])) {
-								foreach($_POST['subject'] as $key=>$subjectValue) {
-									foreach($_POST['course'] as $courseNumber) {
-										if ($key == $i) {
-											$reqlist .= $del.'("'.$subjects[$subjectValue].'",'.$courseNumber.')';
-										}
-										$i++;
-										$del=',';
-									}
-									$i = 0;
-								}
-								$reqlist.="]'";
-								echo 'reqlist: '.$reqlist;
+<?php
+	include('includes/dbconnect.php');	
+	function str_lreplace($search, $replace, $subject) {
+			$pos = strrpos($subject, $search);
+
+			 if($pos !== false) {
+					$subject = substr_replace($subject, $replace, $pos, strlen($search));
+			}	
+
+			return $subject;
+	}
+
+	$subjects = array('', 'ARCH', 'BIOL', 'BMED', 'BLDG', 'TBAN', 'CHEM', 'TCAN', 'CIVE', 'CIVT', 'COMM', 'COMP', 'TCON', 'CONM', 'TCMC', 'DSGN', 'ECON', 'ELEC', 'TEIT', 'ENGR', 'ENGL', 'FMGT', 'TFMC', 'HIST', 'HUMN', 'HUSS', 'INDS', 'INTS', 'TJEC', 'LITR', 'MGMT', 'HUSS', 'MANF', 'MATH', 'MECH', 'TCAD', 'PHIL', 'POLS', 'TPMC', 'PHYS', 'SOCL', 'SURV');
+	$reqlist="python ./schedulegenerator.py '[";
+	$i = 0;
+	$del='';
+	if (isset($_POST['Submit'])) {
+		foreach($_POST['subject'] as $key=>$subjectValue) {
+			foreach($_POST['course'] as $courseNumber) {
+				if ($key == $i && ($subjects[$subjectValue] != "" || $courseNumber != "")) {
+					$reqlist .= $del.'("'.$subjects[$subjectValue].'",'.$courseNumber.')';
+				}
+				$i++;
+				$del=',';
+			}
+			$i = 0;
+		}
+		$reqlist.="],\"".$_POST['season']."\"'";
+		#$reqlist= "pwd";
+		$command = escapeshellcmd($reqlist);
+		//$output = eval(shell_exec($command." 2>&1"));
+		$output = shell_exec($command." 2>&1");
+		//$output = shell_exec('whoami');
+		#echo "</br>output: ".$output;
+		$conn->select_db($_POST['season']);
+		$result="";
+		$numOfSchedules=0;
+		$s=1;
+		$del="[[";
+		$printCRN="Schedule 1: ";
+		foreach(eval("return ".$output.";") as $set) {
+				foreach($set as $CRN) {
+					#echo "</br>CRN: ".$CRN;
+					$printCRN.=$CRN.",";	
+					$result = $conn->query("SELECT a.course_CRN, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND a.course_CRN=$CRN");
+					if ($result->num_rows > 0) {
+						while($row = $result->fetch_assoc()) {
+							if($row["day"] == "M") {
+									$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." - ".$row["instructor"]."', start: '2016-02-15T".test($row["start"])."', end: '2016-02-15T".test($row["end"])."'}";
+							} else if($row["day"] == "T") {
+									$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." - ".$row["instructor"]."', start: '2016-02-16T".test($row["start"])."', end: '2016-02-16T".test($row["end"])."'}";
+							} else if($row["day"] == "W") {
+									 $del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." - ".$row["instructor"]."', start: '2016-02-17T".test($row["start"])."', end: '2016-02-17T".test($row["end"])."'}";
+							} else if($row["day"] == "R") {
+									$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." - ".$row["instructor"]."', start: '2016-02-18T".test($row["start"])."', end: '2016-02-18T".test($row["end"])."'}";
+							} else if($row["day"] == "F") {
+									$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." - ".$row["instructor"]."', start: '2016-02-19T".test($row["start"])."', end: '2016-02-19T".test($row["end"])."'}";
+							} else if($row["day"] == "S") {
+									$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]." - ".$row["instructor"]."', start: '2016-02-20T".test($row["start"])."', end: '2016-02-20T".test($row["end"])."'}";
 							}
-							$command = escapeshellcmd($reqlist);
-							//$output = eval(shell_exec($command." 2>&1"));
-							$output = shell_exec($command." 2>&1");
-							//$output = shell_exec('whoami');
-							echo "</br>output: ".$output;
+							$del.=", ";
+
+						}
+					}
+				}
+				$s++;
+				$printCRN=substr($printCRN,0, strlen($printCRN)-1);
+				$printCRN.="</br>Schedule $s: ";
+				$numOfSchedules++;
+				$del.="] , [";
+		}
+		$del=substr($del,0,strlen($del)-6)."]]";
+		echo "<div id='calendar'></div>";
+		echo "</br></br>";
+		for($i=0; $i<$numOfSchedules;$i++){
+			$j=($i+1);
+			
+			echo "<button style=\"padding: 0 10px\" class=\"button button-pill button-flat-primary\" onclick=\"addEvents($del,$i);\">Schedule $j</button>";
+			if($j%7==0){
+				echo "</br></br>";
+			}
 							
-							foreach(eval("return ".$output.";") as $set) {
-								foreach($set as $CRN) {
-									echo "</br>CRN: ".$CRN;
-								}
-								echo "</br>";
-							}
-						?>
+		}
+		echo "</br></br>";
+		echo "</br><button class=\"button button-royal button-pill\" onclick=\"printPage()\">Print Schedule</button></br>";
+		echo "</br></br>";
+		
+		$printCRN=substr($printCRN,0,strlen($printCRN)-13);
+		echo $printCRN;
+		$conn->close();
+
+	}
+	 function test($string){
+			$hour = intval(substr($string,0,2));
+			if( $hour >= 1 && $hour < 8){
+					$hour += 12;
+					return (strval($hour).substr($string,2));
+			}else{
+					return ($string);
+			}
+	}
+
+?>
 					</div>
 				</div>
 			</div>
 		</section>
 	</header>
 
-    <aside class="bg-dark">
-        <div class="container text-center">
-            <div class="call-to-action">
-                <h2></h2>
-                <a href="#" class="btn btn-default btn-xl wow tada">Top</a>
-            </div>
-        </div>
-    </aside>
-
-	
+<?php include('includes/footer.html');?>
+<?php include('includes/search-form.html');?>	
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -228,43 +251,40 @@
 		$(document).ready(function() {
 		calendar = $('#calendar');
 			calendar.fullCalendar({
-			theme: true,
-			header: false,
-			height: 525,
-			columnFormat: 'ddd',
-			defaultView: 'agendaWeek',
-			defaultDate: '2016-02-14',
-			minTime: '08:00:00',
-			maxTime: '20:00:00',
-			allDaySlot: false,
-			editable: false,
-			eventLimit: true,
-			eventColor: '#378006'
-		});
-       });
-	   
-		var myEvent = {
-			id: "Event1",
-			title:"my new event",
-			start: '2016-02-14T18:00:00+00:00',
-			end: '2016-02-14T19:0:00+00:00',
-			backgroundColor: "red"
-        }
-		
-        var myEvent2 = {
-			id: "Event2",
-			title:"my new event",
-			start: '2016-02-15T13:00:00+00:00',
-			end: '2016-02-15T14:0:00+00:00'
-        }
+				theme: true,
+				header: false,
+				contentHeight: 'auto',
+				columnFormat: 'ddd',
+				defaultView: 'agendaWeek',
+				defaultDate: '2016-02-14',
+				minTime: '08:00:00',
+				maxTime: '22:00:00',
+				allDaySlot: false,
+				editable: false,
+				eventLimit: false,
+				eventColor: '#378006',
+				eventClick: function(calEvent, jsEvent, view) {
+
+        		alert('Event: ' + calEvent.title);
+
+       			 // change the border color just for fun
+        		$(this).css('border-color', 'red');
+
+    			}
+			});
+       	});
 
         function addEvent(event) {
 			calendar.fullCalendar('renderEvent', event);
         }
 		
-        function addEvents(events){
-			for (i = 0; i < events.length; i++) {
-				addEvent(events[i]);
+        function addEvents(events,num){
+			for (j = 0; j < events.length; j++) {
+					removeEvents(events[j]);
+			}
+			var event2 = events[num];
+			for (i = 0; i < event2.length; i++) {
+				addEvent(event2[i]);
 			}
         }
 		
@@ -283,5 +303,4 @@
 		}
       </script>
 </body>
-
 </html>

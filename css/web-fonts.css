@@ -1,0 +1,52 @@
+@font-face {
+font-family: 'cabin-regular';	
+	src: url('../fonts/Cabin-Regular.otf') format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+font-family: 'cabin-bold';
+	src: url('../fonts/Cabin-Bold.otf') format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+font-family: 'gravity-regular';
+	src: url('../fonts/Gravity-Regular.otf') format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+font-family: 'gravity-bold';
+	src: url('../fonts/Gravity-Bold.otf') format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+font-family: gravity-book;
+	src: url("../fonts/Gravity-Book.otf") format("opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+font-family: 'sourcesanspro-regular';
+	src: url("../fonts/SourceSansPro-Regular.otf") format("opentype");
+}
+@font-face {
+font-family: 'sourcesanspro-bold';
+	src: url("../fonts/SourceSansPro-Bold.otf") format("opentype");
+}
+@font-face {
+font-family: 'opensans-condensed';
+	src: url("../fonts/OpenSans-CondLight.ttf") format("truetype");
+}
+@font-face {
+font-family: 'oswald-regular';
+	src: url("../fonts/Oswald-Regular.ttf") format("truetype");
+}
+@font-face {
+font-family: 'oswald-bold';
+	src: url("../fonts/Oswald-Bold.ttf") format("truetype");
+}
+
+}

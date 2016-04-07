@@ -1,3 +1,5 @@
+<?php include("/var/www/html/password_protect.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,6 +136,35 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+
+	<script>
+		function passWord() {
+			var testV = 1;
+			var pass1 = prompt('Please Enter Your Password',' ');
+			while (testV < 3) {
+			if (!pass1) 
+			history.go(-1);
+			if (pass1.toLowerCase() == "letmein") {
+			alert('You Got it Right!');
+			window.open('index.php');
+			break;
+			} 
+			testV+=1;
+			var pass1 = 
+			prompt('Access Denied - Password Incorrect, Please Try Again.','Password');
+			}
+			if (pass1.toLowerCase()!="password" & testV ==3) 
+			history.go(-1);
+			return " ";
+		} 
+	</script>
+	
+		<CENTER>
+		<FORM>
+		<input type="button" value="Enter Protected Area" onClick="passWord()">
+		</FORM>
+		</CENTER>
+		
 </body>
 
 </html>
