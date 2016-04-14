@@ -17,7 +17,7 @@ import MySQLdb, datetime, sys, ast, string
 def buildRoster(schedulelist,db_name):
   fullRoster=[]
   requirement=['','',[]]
-  db=MySQLdb.connect(user="root",passwd="Csc2016!",db=db_name)
+  db=MySQLdb.connect(user="scheduleit",passwd="Software2016!",db=db_name)
   for courseReq in schedulelist:
     requirement=['','',[]]
     querystat="select CRN from course where subject='"+(str)(courseReq[0])+"' and course='"+(str)(courseReq[1])+"';"

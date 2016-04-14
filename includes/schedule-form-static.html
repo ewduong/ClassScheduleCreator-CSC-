@@ -1,0 +1,41 @@
+<h3 class="section-heading">Select Courses To Create Schedule</h3>
+<form method ="post" id="schedule-form-static" class="schedule-form-static">
+	<input type="hidden" name="action" value="schedule-search" />
+        <p>
+            <select id="season" name="season" class="button button-rounded" style="font-size:120%;">
+<?php
+	$season_array = array ('Spring 2016'=>'spring_2016', 'Fall 2016'=>'fall_2016');
+	foreach ($season_array as $display => $value)
+	{
+		print ( '<option value="'.$value.'">'.$display.'</option>');
+    }
+?>
+            </select>
+        </p>
+<div class="multi-field-wrapper">
+    <div class="multi-fields">
+            <div class="multi-field" style="text-align:center;">
+           <label for="subject-label[]">Subject: </label>
+            <select id="subject-sch" name="subject[]" class="button button-rounded" onChange="getCourse(this.value);">
+                <option value="">------</option>
+
+<?php
+	$subjects = array ('ARCH','BIOL','BLDG','BMED','CHEM','CIVE','COMM','COMP','CONM','COOP','DSGN','ECON','ELEC','ELMC','ENGL','ENGR','ETHS','FMGT','FYS','HIST','HUMN','INDS','INTD','LITR','MANF','MATH','MECH','MGMT','PHIL','PHYS','POLS','PSYC','SOCL','SURV','TBAN','TCAD','TCLI','TCMC','TCON','TCRM','TFMC','TJEC','TMGT','TMTO','TPMC','TWEL');
+	foreach ($subjects as $value)
+	{
+		print ( '<option value="'.$value.'">'.$value.'</option>');
+    }
+?>
+           </select>
+            <label for="course-label[]">Course #: </label>
+           <input type='text' placeholder='Search...' id="course-search-box-thing" name="course[]"/>
+<!--            <select id="course-sch" name="course" class="button button-rounded">
+                <option value="">-------</option>
+            </select>-->
+            <button type="button" class="remove-field button button-box button-small"><i class="fa fa-minus"></i></button>
+        </div>
+    </div>
+    <p><button type="button" class="add-field button button-box"><i class="fa fa-plus"></i></button></p>
+    <p><input type="submit" name="Submit" value="Create Schedule" class="btn btn-default btn-md"></p>
+</div>
+</form>

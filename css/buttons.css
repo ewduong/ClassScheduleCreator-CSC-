@@ -97,17 +97,17 @@
 * The default values for the .button class
 */
 .button {
-  color: #666666;
-  background-color: #eeeeee;
-  border-color: #eeeeee;
+  color: #FFF;
+  background-color: #222;
+  border-color: #333;
   font-weight: 300;
   font-size: 16px;
   font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   text-decoration: none;
   text-align: center;
-  line-height: 40px;
-  height: 40px;
-  padding: 0 40px;
+  line-height: 30px;
+  height: 30px;
+  padding: 0 30px;
   margin: 0;
   display: inline-block;
   appearance: none;
@@ -129,17 +129,17 @@
   * that must be applied to all buttons when in a disabled state.
   */ }
   .button:visited {
-    color: #666666; }
+    color: #FFF; }
   .button:hover, .button:focus {
-    background-color: #f6f6f6;
+    background-color: #333;
     text-decoration: none;
     outline: none; }
   .button:active, .button.active, .button.is-active {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
     text-decoration: none;
-    background-color: #eeeeee;
-    border-color: #cfcfcf;
-    color: #d4d4d4;
+    background-color:#555;
+    border-color: #666;
+    color: #FFF;
     -webkit-transition-duration: 0s;
             transition-duration: 0s;
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);

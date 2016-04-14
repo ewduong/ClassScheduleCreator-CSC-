@@ -4,21 +4,16 @@
  * (c) 2015 Adam Shaw
  */
 
-
 .fc {
 	direction: ltr;
 	text-align: left;
 }
-
 .fc-rtl {
 	text-align: right;
 }
-
 body .fc { /* extra precedence to overcome jqui */
 	font-size: 1em;
 }
-
-
 /* Colors
 --------------------------------------------------------------------------------------------------*/
 
@@ -340,7 +335,7 @@ hr.fc-divider {
 	height: 0;
 	margin: 0;
 	padding: 0 0 2px; /* height is unreliable across browsers, so use padding */
-	border-width: 1px 0;
+	border-width: 1px;
 }
 
 .fc-clear {
@@ -375,33 +370,31 @@ hr.fc-divider {
 	table-layout: fixed;
 	border-collapse: collapse;
 	border-spacing: 0;
-	font-size: 1em; /* normalize cross-browser */
+	font-size: 1em; /* normalize cross-browser */	
 }
-
-.fc th {
-	text-align: center;
-}
-
-.fc th,
 .fc td {
-	border-style: solid;
-	border-width: 1px;
+	border:#000 solid 1px;
 	padding: 0;
 	vertical-align: top;
+	background-color:#333;
 }
-
+.fc th td {
+	text-align: center;
+	background-color:#000;
+}
 .fc td.fc-today {
 	border-style: double; /* overcome neighboring borders */
 }
-
+.fc th {
+ background-color:#000;
+}
 
 /* Fake Table Rows
 --------------------------------------------------------------------------------------------------*/
 
 .fc .fc-row { /* extra precedence to overcome themes w/ .ui-widget-content forcing a 1px border */
 	/* no visible border by default. but make available if need be (scrollbar width compensation) */
-	border-style: solid;
-	border-width: 0;
+	border: #000 solid 0px;
 }
 
 .fc-row table {

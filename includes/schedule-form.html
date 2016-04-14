@@ -1,0 +1,93 @@
+<form method ="post" id="schedule-form-static" class="schedule-form-static" >
+	<input type="hidden" name="action" value="schedule-search" />
+            <select id="semester-sch" name="season" class="button button-rounded" style="font-size:120%;">
+                <option value="">Select --></option>
+<?php
+	$season_array = array ('Spring 2016'=>'spring_2016','Fall 2016'=>'fall_2016');
+	foreach ($season_array as $display => $value)
+	{
+		print ( '<option value="'.$value.'">'.$display.'</option>');
+    }
+?>
+            </select>
+<div id="input1" style="margin:8px;" >
+	<div id="input_fn_1">
+            <select name="subject[]" id="subject-sch" class="subject-sch button button-rounded" >
+                <option value="">------</option>
+            </select>
+            
+            <select name="course[]" id="course-sch" class="course-sch button button-rounded" >
+                <option value="">-------</option>
+            </select>
+	</div>
+   	<p id="add-class1" style="margin:8px;" class="">
+    <button type="button" class="add-class1 button button-box"><i class="fa fa-plus"></i></button>
+    <button type="button" class="remove-class1 button button-box" disabled><i class="fa fa-minus"></i></button>
+    </p>
+</div>
+
+<div id="input2" style="margin:8px;" class="hide">
+	<div id="input_fn_1">
+            <select name="subject[]" id="subject2" class="subject2 button button-rounded" >
+                <option value="">------</option>
+            </select>
+            
+            <select name="course[]" id="course2" class="course2 button button-rounded" >
+                <option value="">-------</option>
+            </select>
+	</div>
+   	<p id="add-class2" class="hide" style="margin:8px;">
+    <button type="button" class="add-class2 button button-box"><i class="fa fa-plus"></i></button>
+    <button type="button" class="remove-class2 button button-box"><i class="fa fa-minus"></i></button>
+    </p>
+</div>
+
+<div id="input3" style="margin:8px;" class="hide">
+	<div id="input_fn_1">
+            <select name="subject[]" id="subject3" class="subject-sch button button-rounded" >
+                <option value="">------</option>
+            </select>
+            
+            <select name="course[]" id="course3" class="course-sch button button-rounded" >
+                <option value="">-------</option>
+            </select>
+	</div>
+   	<p id="add-class3" class="hide" style="margin:8px;">
+    <button type="button" class="add-class3 button button-box"><i class="fa fa-plus"></i></button>
+    <button type="button" class="remove-class3 button button-box"><i class="fa fa-minus"></i></button>
+    </p>
+</div>
+
+
+<div id="input4" style="margin:8px;" class="hide">
+	<div id="input_fn_1">
+            <select name="subject[]" id="subject4" class="subject-sch button button-rounded" >
+                <option value="">------</option>
+            </select>
+            
+            <select name="course[]" id="course4" class="course-sch button button-rounded" >
+                <option value="">-------</option>
+            </select>
+	</div>
+   	<p id="add-class4" class="hide" style="margin:8px;">
+    <button type="button" class="add-class4 button button-box"><i class="fa fa-plus"></i></button>
+    <button type="button" class="remove-class4 button button-box"><i class="fa fa-minus"></i></button>
+    </p>
+</div>
+<div id="input5" style="margin:8px;" class="clonedInput hide">
+	<div id="input_fn_1">
+            <select name="subject[]" id="subject5" class="subject5 button button-rounded" >
+                <option value="">------</option>
+            </select>
+            
+            <select name="course[]" id="course5" class="course5 button button-rounded" >
+                <option value="">-------</option>
+            </select>
+	</div>
+   	<p id="add-class5" class="hide" style="margin:8px;">
+    <button type="button" class="add-class5 button button-box" disabled><i class="fa fa-plus"></i></button>
+    <button type="button" class="remove-class5 button button-box" ><i class="fa fa-minus"></i></button>
+    </p>
+</div>
+    <p><input type="submit" name="Submit" value="Create Schedule" class="btn btn-default btn-md"></p>      
+</form>

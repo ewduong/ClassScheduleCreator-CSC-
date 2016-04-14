@@ -7,11 +7,10 @@ $wfieldname = "";
 $_POST['season'] = str_replace ('&nbsp;', '', $_POST ['season']);
 
 
-if (trim ($_POST['season']) == "spring_2016") {
-	$conn->select_db('spring_2016');
-} else if (trim ($_POST['season']) == "fall_2016") {
-	$conn->select_db('fall_2016');
-}	
+if (trim ($_POST['season'])) {
+	$conn->select_db(trim($_POST['season']));
+}
+	
 foreach($fields AS $fieldname) { // Loop trough each field to see if empty or not
 	if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
 		$$fieldname = false;
@@ -19,6 +18,11 @@ foreach($fields AS $fieldname) { // Loop trough each field to see if empty or no
 		$$fieldname = true;
 	}
 }
+function format($var)
+{
+	return ucwords (strtolower($var));
+}
+
 // sql statement generator based on text boxes and checkboxes filled in
 foreach($fields AS $fieldname) {
 	if ($$fieldname) {
@@ -56,15 +60,16 @@ if ($result->num_rows > 0) {
 	print ('<section id="schedule-section">
 	<h4 class="section-heading">Search Result For '.ucwords (str_replace ("_", " ", $_POST['season'])).'</h2>
 	<a id="open-search-button" class="btn btn-default btn-xl">Search Again</a>
-	<div class="component"><table class="overflow-y" id="course-search">
+	<div class="component">
+	<table class="overflow-y" id="course-search">
 		<thead>
 			<tr>
-				<th>Course CRN</th>
-				<th>Subject</th>
-				<th>Course #</th>
-				<th>Section</th>
-				<th>Credits</th>
-				<th>Title</th>
+				<th style="width:5%;">CRN</th>
+				<th style="width:5%;">Subject</th>
+				<th style="width:5%;">Course</th>
+				<th style="width:5%;">Sect</th>
+				<th style="width:5%;">Credits</th>
+				<th style="width:14%;">Title</th>
 				<th>Day</th>
 				<th>Start</th>
 				<th>End</th>
@@ -82,7 +87,7 @@ if ($result->num_rows > 0) {
 				<td>".$row["course"]."</td>
 				<td>".$row["section"]."</td>
 				<td>".$row["credits"]."</td>
-				<td>".$row["title"]."</td>
+				<td>".format($row["title"])."</td>
 				<td>".$row["day"]."</td>
 				<td>".$row["start_format"]."</td>
 				<td>".$row["end_format"]."</td>

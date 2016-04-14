@@ -1,7 +1,6 @@
 <?PHP
 $page = basename($_SERVER["SCRIPT_FILENAME"], '.php');
 ?>
-
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -23,17 +22,11 @@ $page = basename($_SERVER["SCRIPT_FILENAME"], '.php');
                         <a class="page-scroll" href="index.php"><i class="fa fa-home fa-2"></i>Home</a>
                     </li>
 					  <li>
-<?PHP
-if ($page == 'search') {
-?>
+<?PHP if ($page == 'search') { ?>
    	                    <a style="cursor:pointer"><i class="fa fa-search fa-2"></i>Find Course</a>
-<?PHP
-}else{
-?>
-                  <a id="open-search" style="cursor:pointer" class="open"><i class="fa fa-search fa-2"></i>Find Course</a>
-<?PHP
-}
-?>
+<?PHP }else{ ?>
+                  		<a id="open-search" style="cursor:pointer"><i class="fa fa-search fa-2"></i>Find Course</a>
+<?PHP } ?>
                     </li>
                     <li>
                         <a class="page-scroll" href="schedule.php"><i class="fa fa-calendar fa-2"></i>Make Schedule</a>
