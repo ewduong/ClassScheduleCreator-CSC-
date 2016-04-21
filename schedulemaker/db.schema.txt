@@ -1,0 +1,17 @@
+courses
+id = CRN
+quarter 1
+department = subject
+course = course
+credits = credits
+title = title
+description = attributes
+
+times
+id = id
+section = ??
+day = day
+start = start
+end = end
+building = location
+room

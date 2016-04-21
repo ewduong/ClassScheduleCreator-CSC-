@@ -1,0 +1,36 @@
+#### PROJECT IGNORES ####
+
+# Ignore configuration files
+inc/config.php
+
+# Ignore schedule images
+img/schedules/*.png
+
+# Ignore node_modules dependencies
+node_modules/*
+
+# Ignore built files
+assets/prod/*
+!assets/prod/.gitkeep
+
+# Other files
+_Local Working Files/*
+
+#### EDITOR IGNORES ####
+
+# Ignore PhpStorm files
+.idea
+*.iml
+
+# Ignore Eclipse files
+.settings
+.project
+.buildpath
+
+# Ignore VisualStudio files
+*.phpproj*
+*.sln
+*.suo
+web.config
+vwd.webinfo
+WebEssentials-Settings.json

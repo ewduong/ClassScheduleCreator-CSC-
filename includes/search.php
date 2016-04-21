@@ -1,15 +1,19 @@
 <?PHP
+$table = trim($_POST ['season']);
 $fields = array('course_CRN', 'subject', 'course', 'section', 'credits', 'title', 'day', 'instructor', 'location');
 $course_CRN = $subject = $title = $day = $start = $end = $instructor = $location = false;
-$sql = "SELECT a.course_CRN, b.subject, b.course, b.section, b.credits, b.title, a.day, DATE_FORMAT(a.start,'%l:%i%p') as start_format, DATE_FORMAT(a.end,'%l:%i%p') as end_format, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND ";
+if ($table == 'spring_2016') {
+	$sql = "SELECT a.course_CRN, b.subject, b.course, b.section, b.credits, b.title, a.day, a.start as start_format, a.end as end_format, a.instructor, a.location FROM `class_".$table."` a, `course_".$table."` b WHERE a.course_CRN = b.CRN AND ";
+} else {
+	$sql = "SELECT a.course_CRN, b.subject, b.course, b.section, b.credits, b.title, a.day, DATE_FORMAT(a.start,'%l:%i%p') as start_format, DATE_FORMAT(a.end,'%l:%i%p') as end_format, a.instructor, a.location FROM `class_".$table."` a, `course_".$table."` b WHERE a.course_CRN = b.CRN AND ";
+}
+
 $wfieldname = "";
 
-$_POST['season'] = str_replace ('&nbsp;', '', $_POST ['season']);
+//  echo $sql.'<br>';
 
 
-if (trim ($_POST['season'])) {
-	$conn->select_db(trim($_POST['season']));
-}
+// $db->select_db());
 	
 foreach($fields AS $fieldname) { // Loop trough each field to see if empty or not
 	if(!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
@@ -55,7 +59,7 @@ if ($_POST['start'] && $_POST['end']) {
 	$sql .= "AND `end` > '".$end.":00'";
 }
 //	echo $sql.'<br>';
-	$result = $conn->query($sql);
+	$result = $db->query($sql);
 if ($result->num_rows > 0) {
 	print ('<section id="schedule-section">
 	<h4 class="section-heading">Search Result For '.ucwords (str_replace ("_", " ", $_POST['season'])).'</h2>
@@ -104,7 +108,7 @@ if ($result->num_rows > 0) {
 </div>'); 
 	include('includes/search-form-static.html');
 }
-$conn->close();
+$db->close();
 
 
 // replace last occurence of $search string (for sql statement remove last AND)

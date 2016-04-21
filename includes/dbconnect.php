@@ -1,13 +1,22 @@
 <?php
-$servername = "localhost";
-$username = "scheduleit";
-$password = "Software2016!";
+
+if ($_SERVER ['SERVER_NAME'] == 'localhost') {
+	$servername = "localhost";
+	$username = "root";
+	$password = "";	
+
+}else{
+	$servername = "localhost";
+	$username = "scheduleit";
+	$password = "Software2016!";
+	$database = 'spring_2016';
+}
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$db = new mysqli($servername, $username, $password, $database);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 } 
 ?>

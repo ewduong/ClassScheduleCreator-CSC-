@@ -17,10 +17,10 @@ import MySQLdb, datetime, sys, ast, string
 def buildRoster(schedulelist,db_name):
   fullRoster=[]
   requirement=['','',[]]
-  db=MySQLdb.connect(user="scheduleit",passwd="Software2016!",db=db_name)
+  db=MySQLdb.connect(user="root",passwd="Csc2016!",db="spring_2016")
   for courseReq in schedulelist:
     requirement=['','',[]]
-    querystat="select CRN from course where subject='"+(str)(courseReq[0])+"' and course='"+(str)(courseReq[1])+"';"
+    querystat="select CRN from course_summer_2016 where subject='"+(str)(courseReq[0])+"' and course='"+(str)(courseReq[1])+"';"
     #print querystat
     db.query(querystat)
     r=db.store_result()
@@ -33,7 +33,7 @@ def buildRoster(schedulelist,db_name):
     for courseCRN in courseCRNS:
       labs=1
       #is this a lab?
-      labcheck="select credits from course where CRN='"+(str)(courseCRN)+"';"
+      labcheck="select credits from course_summer_2016 where CRN='"+(str)(courseCRN)+"';"
       #print labcheck
       db.query(labcheck)
       lab=db.store_result()
@@ -45,14 +45,14 @@ def buildRoster(schedulelist,db_name):
         course=[Set([]),[]]  #this is to reset the object
         course[0].add(int(courseCRN))     #add each class to the list with each CRN
         #get the classes for the lecture
-        quer="select day, start, end from class where course_CRN='"+(str)(courseCRN)+"';"
+        quer="select day, start, end from class_summer_2016 where course_CRN='"+(str)(courseCRN)+"';"
         #print quer
         db.query(quer)
         r=db.store_result()
         for row in r.fetch_row(maxrows=0):
           course[1]+=[(row[0],(datetime.datetime.min + row[1]).time(),(datetime.datetime.min + row[2]).time())]
         #is there a lab to this class
-        labquery="select credits,subject from course where CRN='"+(str)(courseCRN+labs)+"';"
+        labquery="select credits,subject from course_summer_2016 where CRN='"+(str)(courseCRN+labs)+"';"
         #print labquery
         db.query(labquery)
         rlab=db.store_result()
@@ -60,7 +60,7 @@ def buildRoster(schedulelist,db_name):
         #print "subject: " + credit_hours[0][1]
         #print credit_hours
         if not credit_hours:
-          labqueryspec="select credits,subject from course where CRN='"+(str)(courseCRN+labs+1)+"';"
+          labqueryspec="select credits,subject from course_summer_2016 where CRN='"+(str)(courseCRN+labs+1)+"';"
           db.query(labqueryspec)
           specrlab=db.store_result()
           spec_credit_hours = specrlab.fetch_row(maxrows=0)
@@ -68,7 +68,7 @@ def buildRoster(schedulelist,db_name):
             break
           if spec_credit_hours[0][0]=="0" and spec_credit_hours[0][1]==courseReq[0]:
             course[0].add(int(courseCRN+labs+1))
-            spec_labclass_quer="select day, start, end from class where course_CRN='"+(str)(courseCRN+labs+1)+"';"
+            spec_labclass_quer="select day, start, end from class_summer_2016 where course_CRN='"+(str)(courseCRN+labs+1)+"';"
             db.query(spec_labclass_quer)
             spec_rr=db.store_result()
             for lab_row in spec_rr.fetch_row(maxrows=0):
@@ -85,7 +85,7 @@ def buildRoster(schedulelist,db_name):
         if credit_hours[0][0]=="0" and credit_hours[0][1]==courseReq[0]:
           course[0].add(int(courseCRN+labs))
           #query for classes
-          labclass_quer="select day, start, end from class where course_CRN='"+(str)(courseCRN+labs)+"';"
+          labclass_quer="select day, start, end from class_summer_2016 where course_CRN='"+(str)(courseCRN+labs)+"';"
           #print labclass_quer
           db.query(labclass_quer)
           rr=db.store_result()

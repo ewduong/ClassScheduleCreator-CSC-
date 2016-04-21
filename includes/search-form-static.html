@@ -3,10 +3,12 @@
 	<div class="wrapper">
     <h3 class="search-form-header">Search For Courses</h3>
     <p><label>Season:</label>
-        <span class="custom-dropdown custom-dropdown--canary">
-            <select name="season" class="custom-dropdown__select custom-dropdown__select--dk-gray">
-                <option value="spring_2016" selected="selected>Spring 2016&nbsp; </option>
-                <option value="fall_2016"">Fall 2016&nbsp; </option>
+
+            <select id="semester-search" name="season" class="button button-rounded" style="font-size:120%;">
+                <option value="">Select --></option>
+<?php
+	include ('includes/seasons_options.php');
+?>
             </select>
         </span>
      </p>
@@ -14,50 +16,20 @@
         <input type="text" name="course_CRN" class="text" value="<?=$_POST['course_CRN']?>" /></p>
         <p><label><i class="fa fa-commenting-o fa-2"></i>
         Subject</label>
-        <span class="custom-dropdown custom-dropdown--canary">
-        <select  name="subject"  class="custom-dropdown__select custom-dropdown__select--dk-gray">
-            <option value=""></option>
-            <option>ARCH</option>
-            <option>BIOL</option>
-            <option>BMED</option>
-            <option>BLDG</option>
-            <option>TBAN</option>
-            <option>CHEM</option>
-            <option>TCAN</option>
-            <option>CIVE</option>
-            <option>CIVT</option>
-            <option>COMM</option>
-            <option>COMP</option>
-            <option>TCON</option>
-            <option>CONM</option>
-            <option>TCMC</option>
-            <option>DSGN</option>
-            <option>ECON</option>
-            <option>ELEC</option>
-            <option>TEIT</option>
-            <option>ENGR</option>
-            <option>ENGL</option>
-            <option>FMGT</option>
-            <option>TFMC</option>
-            <option>HIST</option>
-            <option>HUMN</option>
-            <option>HUSS</option>
-            <option>INDS</option>
-            <option>INTS</option>
-            <option>TJEC</option>
-            <option>LITR</option>
-            <option>MGMT</option>
-            <option>HUSS</option>
-            <option>MANF</option>
-            <option>MATH</option>
-            <option>MECH</option>
-            <option>TCAD</option>
-            <option>PHIL</option>
-            <option>POLS</option>
-            <option>TPMC</option>
-            <option>PHYC</option>
-            <option>SOCL</option>
-            <option>SURV</option>
+
+        <select name="subject" id="subject-search" class="subject-sch button button-rounded" >
+            <option value="">------</option>
+<?php
+	include ('includes/seasons_options.php');
+	$subjects_fall2016 = array ('ARCH','BIOL','BLDG','BMED','CHEM','CIVE','COMM','COMP','CONM','COOP','DSGN','ECON','ELEC','ELMC','ENGL','ENGR','ETHS','FMGT','FYS','HIST','HUMN','INDS','INTD','LITR','MANF','MATH','MECH','MGMT','PHIL','PHYS','POLS','PSYC','SOCL','SURV','TBAN','TCAD','TCLI','TCMC','TCON','TCRM','TFMC','TJEC','TMGT','TMTO','TPMC','TWEL');
+	foreach ($subjects_fall2016 as $display => $value)
+	{
+		print ( '<option value="'.$value.'"');
+		print ('>'.$value.'</option>');
+    }
+
+
+?>
         </select>
 		</p>
         <p><label><i class="fa fa-commenting-o fa-2"></i>Class Title</label>

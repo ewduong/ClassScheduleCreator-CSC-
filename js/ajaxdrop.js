@@ -118,3 +118,35 @@ $('#subject5').on('change',function(){
 	}
 });
 });
+$('#semester-search').on('change',function(){
+	var semesterID = $(this).val();
+	if(semesterID){
+		$.ajax({
+			type:'POST',
+			url:'includes/ajaxData.php',
+			data:'semester_id='+semesterID,
+			success:function(html){
+				$('#subject-search').html(html);
+			}
+		}); 
+	}else{
+		$('#subject-search').html('<option value="">----------</option>');
+	}
+});
+$('#subject-search').on('change',function(){
+	var subjectID = $(this).val();
+	var semesterField = document.getElementById('semester-search');
+	var semesterID = semesterField.value;
+	if(subjectID){
+		$.ajax({
+			type:'POST',
+			url:'includes/ajaxData.php',
+			data:'subject_id='+subjectID+'&semester_id='+semesterID,
+			success:function(html){
+				$('#course-sch').html(html);
+			}
+		}); 
+	}else{
+		$('#course-search').html('<option value="">------</option>'); 
+	}
+});

@@ -2,45 +2,16 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
     <title>ScheduleIt</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-
-    <!-- Custom Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css" type="text/css">
-    	<link rel="stylesheet" href="css/web-fonts.css" type="text/css">
-
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/creative.css" type="text/css">
-	<link rel="stylesheet" href="css/buttons.css" type="text/css">
-    <link rel="stylesheet" href="css/custom.dropdown.css" type="text/css">
-	
-	<!-- Calender Stuff -->
-    <link href='css/fullcalendar.css' rel='stylesheet' />
-    <link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
-
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script src="js/ajaxdrop.js" type="text/javascript"></script>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<?php include ('includes/js.html'); ?>
+    <link href='fullcalendar.css' rel='stylesheet' />
+    <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
 <style>
 @media print {
     .noprint { display:none; }
@@ -77,6 +48,7 @@ if ($_POST) {
 			$return_mid .= '("'.$_POST ['subject'][$i].'",'.$_POST ['course'][$i].'),';
 		}
 	}
+	$table = trim($_POST ['season']);
 }
 
 if (!$_POST) {
@@ -91,14 +63,14 @@ if (!$_POST) {
 	include ('includes/schedule-form.html');
 }else {
 	include('includes/dbconnect.php');	
-	$return = 'python ./schedulegenerator.py \'['.rtrim ($return_mid, ',').'], "'.$_POST ['season'].'"\'';
+	$return = 'python ./schedulegenerator'.$_POST ['season'].'.py \'['.rtrim ($return_mid, ',').'], "'.$_POST ['season'].'"\'';
 //	echo $return;
 	$command = escapeshellcmd($return);
-	//$output = eval(shell_exec($command." 2>&1"));
+	$output = eval(shell_exec($command." 2>&1"));
 	$output = shell_exec($command." 2>&1");
 	//$output = shell_exec('whoami');
 //	echo "</br>output: ".$output;
-	$conn->select_db($_POST['season']);
+//	$db->select_db($_POST['season']);
 	$result="";
 	$numOfSchedules=0;
 	$s=1;
@@ -112,17 +84,17 @@ if (!$_POST) {
 			}
 //			echo "</br>CRN: ".$CRN;
 			$printCRN.=$CRN.",";
-			$query = "SELECT a.course_CRN, b.title, a.day, a.start, a.end, a.instructor, a.location FROM class a, course b WHERE a.course_CRN = b.CRN AND a.course_CRN=$CRN";
-			$result = $conn->query($query);
+			$query = "SELECT a.course_CRN, b.title, a.day, a.start, a.end, a.instructor, a.location FROM `class_".$table."` a, `course_".$table."` b WHERE a.course_CRN = b.CRN AND a.course_CRN=$CRN";
+			$result = $db->query($query);
 			if ($result->num_rows > 0) {
 				while($row = $result->fetch_assoc()) {
 					$class_length = strtotime (test($row['end']))- strtotime (test($row['start']));
 					// echo 'Class Length ['.$row['course_CRN'].']:'.gmdate('H:i', $class_length).' : '.($class_length).'<br>';
 					if ($class_length > 3000)
 					{
-						$row ['title'] = format_title(clean($row["title"]))." - ".format_title(clean($row["instructor"]));
+						$row ['title'] = format_title($row["title"])." - ".format_title($row["instructor"]);
 					}else {
-						$row ['title'] = format_title(clean($row["title"]));
+						$row ['title'] = format_title($row["title"]);
 					}
 					if($row["day"] == "M") {
 							$del .= "{id: '".$row["course_CRN"]."', title: '".$row["title"]."', start: '2016-02-15T".test($row["start"])."', end: '2016-02-15T".test($row["end"])."'}";
@@ -172,10 +144,10 @@ if (!$_POST) {
 		echo "<button style=\"padding: 0 10px;margin:0 5px 0 0;border-radius:10px 10px 0 0;float:left;\" class=\"button button-pill button-flat-primary cal-button\" onclick=\"addEvents($del,$i);\">Schedule $j</button>";
 	}
 	echo "<button style=\"padding: 0 10px; border-radius:10px 10px 0 0;float:right;\" class=\"button button-pill cal-button\" onclick=\"printPage()\">Print Schedule</button></br>";
-	echo "<div id='printarea'><div id='calendar'></div>";
+	echo "<div id='printarea' style='margin-bottom:50px;'><div id='calendar'></div>";
 	$printCRN=substr($printCRN,0,strlen($printCRN)-13).'</div>';
 	echo $printCRN;
-	$conn->close();
+	$db->close();
 }
 function test($string){
 	if ($_POST['season'] == 'fall_2016')
@@ -194,18 +166,18 @@ function format_title($var)
 {
 	if (strstr ($var, '- LAB'))
 	{
-		return substr (ucwords (strtolower(str_replace ('- LAB', '', $var))), 0,22).'(lab)';
+		return substr (ucwords (strtolower(str_replace ('- LAB', '', $var))), 0,25).'(lab)';
 	}
 	if (strstr ($var, '-LAB'))
 	{
-		return substr (ucwords (strtolower(str_replace ('-LAB', '', $var))), 0,22).'(lab)';
+		return substr (ucwords (strtolower(str_replace ('-LAB', '', $var))), 0,25).'(lab)';
 	}
-	return substr (ucwords (strtolower($var)), 0,26);
+	return substr (ucwords (strtolower($var)), 0,30);
 }
 function clean ($var) {
 	return preg_replace('/[^\w\d\s]+/', '', strip_tags(html_entity_decode($var)));
 }
-
+https://www.facebook.com/v2.3/dialog/share?redirect_uri=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Freturn%2Fclose&display=popup&href=http%3A%2F%2Fschedule.csh.rit.edu%2Fschedule%2Fa44ad&client_id=966242223397117&ret=login&ext=1460938017&hash=AebF-etq_MzhPlxG
 
 ?>
               </div>
@@ -217,7 +189,6 @@ function clean ($var) {
 <?php include('includes/footer.html');?>
 <?php include('includes/search-form.html');?>	
 
-    <!-- Plugin JavaScript -->
 	<script type="text/javascript" src="js/buttons.js"></script>
 	
 	<!-- Calender Stuff -->

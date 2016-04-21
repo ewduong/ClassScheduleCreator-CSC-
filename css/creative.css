@@ -18,22 +18,18 @@ html {
 	background-size: cover;
 	
 }
-
 body {
     webkit-tap-highlight-color: #222;
     font-family: 'Helvetica Neue',Arial,sans-serif;
 	background-color:transparent;
 	padding-bottom:60px;
 }
-
 pre {
 	text-align:left;
 }
-
 hr {
     max-width: 80%;
 }
-
 hr.fading {
     border: 0;
     height: 1px;
@@ -191,31 +187,25 @@ aside {
         border-color: rgba(255,255,255,.3);
         background-color: transparent;
     }
-
     .navbar-default .navbar-header .navbar-brand {
         color: rgba(255,255,255,1);
     }
-
     .navbar-default .navbar-header .navbar-brand:hover,
     .navbar-default .navbar-header .navbar-brand:focus {
         color: rgba(255,255,255,.85);
     }
-
     .navbar-default .nav > li>a,
     .navbar-default .nav>li>a:focus {
         color: rgba(255,255,255,.85);
     }
-
     .navbar-default .nav > li>a:hover,
     .navbar-default .nav>li>a:focus:hover {
         color: #fff;
     }
-
     .navbar-default.affix {
         border-color: rgba(34,34,34,.05);
         background-color: #000;
     }
-
     .navbar-default.affix .navbar-header .navbar-brand {
 		height:40px;
 		padding-top:8px;
@@ -223,18 +213,15 @@ aside {
         font-size: 24px;
         color: #fac303;
     }
-
     .navbar-default.affix .navbar-header .navbar-brand:hover,
     .navbar-default.affix .navbar-header .navbar-brand:focus {
         color: #eb3812;
     }
-
     .navbar-default.affix .nav > li>a,
     .navbar-default.affix .nav>li>a:focus {
 		padding-top: 12px;
         color: #FAC303;
     }
-
     .navbar-default.affix .nav > li>a:hover,
     .navbar-default.affix .nav>li>a:focus:hover {
         color: #FFF;
@@ -842,10 +829,11 @@ span.reference a:hover {
 	background-color: rgba(0,0,0,.9);
 	border:#333 2px solid;
 	border-radius:15px;
-	padding:8px;
+	padding:4px 8px 8px;
 	margin: 10px auto 20px;;
 	z-index:1000;
 }
+.contact-message,
 .schedule-form,
 .search-form {
 	width:100%;
@@ -865,9 +853,9 @@ span.reference a:hover {
 	border-radius:25px;
 	text-align:center;
 	cursor:pointer;
-	transform: translateY(15%);
-	webkit-transform: translateY(15%);
-	ms-transform: translateY(15%);
+	left: 20%;
+	right: 20%;
+	width:60%;
 }
 .contact,
 .login {
@@ -882,11 +870,6 @@ span.reference a:hover {
 	transition: all .4s;
 	border:#333 2px solid;
 	padding:8px;
-}
-.contact-message {
-	left: 20%;
-	right: 20%;
-	width:60%;
 }
 .copyright-box {
 	color: #FFF;
@@ -905,14 +888,22 @@ span.reference a:hover {
 	overflow: visible;
 	line-height:20px;
 }
+.contact,
+.search-form,
+.login {
+	transform: translateY(-200%); /* hides form */
+	webkit-transform: translateY(-200%);
+	ms-transform: translateY(-200%);
+}
 @media(min-width:450px) {
 .schedule-form-static,
 .schedule-form,
 .search-form,
 .search-form-static {
-	width:80%;
-	left:5%
-	right:5%;	
+	width:90%;
+	left:5%;
+	right:5%;
+	min-width:400px;
 }
 @media(min-width:768px) {
 	.contact,
@@ -1027,7 +1018,7 @@ span.reference a:hover {
 .search-form p {
 	font-weight: 500;
 	width: 100%;
-	color:#fff;
+	color: #fff;
 	text-align: left;
 }
 .schedule-form-static p,
@@ -1035,7 +1026,7 @@ span.reference a:hover {
 	text-align:center;
 }
 .schedule-form-static p label,
-.schedule-form p label
+.schedule-form p label,
 .search-form-static p label,
 .search-form p label {
 	color:#fff;
@@ -1049,7 +1040,7 @@ span.reference a:hover {
 	width:50px;
 }
 .schedule-form-static p .text,
-.schedule-form p .text
+.schedule-form p .text,
 .search-form-static p .text,
 .search-form p .text {
 	background-color:#222;
@@ -1065,7 +1056,7 @@ span.reference a:hover {
 	padding:4px 8px;
 	border-radius:6px;
 	border:1px solid #333;
-	width:130px;;
+	width:130px;
 }
 .schedule-form span.close,
 .search-form span.close {
@@ -1201,7 +1192,6 @@ visible {
 .padding-bottom {
 	margin-bottom:60px;
 }
-
 .back-screen, .back-screen-sm {
 	margin-top:20px;
 	background-color:rgba(0,0,0,.2);
@@ -1209,6 +1199,7 @@ visible {
 	padding:10px;
 }
 .back-screen-sm {
+	margin-top:10px;
 	border-radius:8px;
 	border: #666 1px solid;
 }
